@@ -30,6 +30,7 @@ const gymSchema = new Schema({
     videoName: String    // Name of the video
   },
   address: String,
+  addressdisp:String,
   location: {
     type: { type: String, default: 'Point' },
     coordinates: [Number] // [longitude, latitude]
@@ -72,6 +73,7 @@ function gymregisterstep1(gymData){
       newgym.description = gymData.gymDescription;
       newgym.owner = gymData.gymowner;
       newgym.holidayDays = gymData.holidayDays;
+      newgym.addressdisp=gymData.address;
       
       newgym.specialities=gymData.specialties;
       newgym.aminities=gymData.amenities
