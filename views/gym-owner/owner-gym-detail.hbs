@@ -343,6 +343,8 @@
 
         document.getElementById('confirmRemoveGym').addEventListener('click', function () {
             // Add your logic here to remove the gym
+             const gymid="{{details._id}}"
+            window.location.href = `/gymowner/removegym?id=${gymid}`;
             console.log('Gym removed');
             var removeGymModal = bootstrap.Modal.getInstance(document.getElementById('removeGymModal'));
             removeGymModal.hide();

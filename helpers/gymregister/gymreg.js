@@ -295,8 +295,19 @@ function sortGym(type) {
   });
 }
 
+function removeGym(id){
+  return new Promise(async(resolve,reject)=>{
+
+    const gym= await Gym.findOneAndDelete(id)
+
+    resolve(gym)
+
+
+  })
+}
+
 
 
 module.exports = { calculatedailyfee,
 gymregisterstep1,gymregisterstep2,gymregisterstep3,chk,
-getdetailsofownersgym,ownerFind,findNearestGyms,gymregisterfinal,findgyms,findgymformembership,sortGym};
+getdetailsofownersgym,ownerFind,findNearestGyms,gymregisterfinal,findgyms,findgymformembership,sortGym,removeGym};

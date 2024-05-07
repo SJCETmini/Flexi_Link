@@ -39,6 +39,14 @@ router.get("/registergym", verifyLogin,function (req, res, next) {
 
 });
 
+router.get("/removegym",(req,res)=>{
+  console.log(req.query.id)
+  gymregister.removeGym(req.query.id).then((response)=>{
+    console.log(response)
+    res.redirect('/gymowner')
+  })
+})
+
 router.get('/address',function(req,res){
 console.log("hiii")
   res.render("gym-owner/getaddress");
