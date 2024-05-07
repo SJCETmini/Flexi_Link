@@ -1,0 +1,105 @@
+.gym-register-section {
+  background-color: hsl(230 73% 5%);
+  overflow: auto
+}
+
+.gym-register-section input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.gym-register-section .container-fluid {
+  background-color: transparent;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 90vw;
+  color: white;
+}
+
+.gym-register-section h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 50px;
+  letter-spacing: 2px;
+}
+
+.gym-register-section i {
+  color: hsl(169 88% 75%);
+}
+
+.gym-register-section .form-check-inline {
+  margin-right: 20px;
+}
+
+.gym-register-section .btn-primary {
+  background-color: hsl(169 88% 75%);
+  border-color: hsl(169 88% 75%);
+  color: hsl(230 73% 5%);
+}
+
+.gym-register-section .btn-primary i {
+  color: hsl(230 73% 5%);
+}
+
+.gym-register-section .btn-primary:hover {
+  background-color: hsl(169, 66%, 40%);
+  border-color: hsl(169, 66%, 40%);
+  color: hsl(230 73% 5%);
+}
+
+.gym-register-section .form-control {
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid hsl(169, 66%, 40%);
+  background-color: transparent;
+  color: white !important;
+  border-radius: 0px;
+}
+
+.gym-register-section .form-control:focus {
+  background-color: inherit;
+  outline: none !important;
+  box-shadow: none;
+}
+
+.gym-register-section .form-group {
+  margin-bottom: 5vh;
+}
+
+.gym-register-section .form-row .form-group {
+  margin-bottom: 2vh;
+  padding-right: 1.5vw;
+}
+
+.gym-register-section textarea {
+  border: 2px solid hsl(169, 66%, 40%) !important;
+}
+
+.gym-register-section ::placeholder {
+  font-size: 0.9rem;
+}
+
+@media (min-width: 992px) {
+  .gym-register-section label {
+    font-size: 1.09rem;
+  }
+
+  .gym-register-section strong {
+    font-size: 1.2rem;
+  }
+
+  .gym-register-section .second-col {
+    padding-left: 3vw;
+  }
+
+  .gym-register-section .opening-hours input::placeholder {
+    font-size: 0.8rem;
+    letter-spacing: -0.5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .gym-register-section h2 {
+    font-size: 1.9rem;
+    letter-spacing: 1px;
+  }
+}

@@ -1,0 +1,37 @@
+<section id="content">
+    <main>
+        <div class="table-data" style="margin-top: 0px;">
+            <div class="order">
+                <div class="table">
+                    {{#each gyms}}
+                    <div class="card">
+                        <div class="row no-gutters m-1">
+                    
+                            <!-- Check if the images array is not empty -->
+                    
+                            {{#if images.[0]}}
+                            <div class="col-md-4 d-flex align-items-center">
+                                <img class="card-img" src="data:{{images.[0].contentType}};base64,{{images.[0].data}}">
+                            </div>
+                            {{/if}}
+                    
+                    
+                            <div class="col-md-8 d-flex align-items-stretch">
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <h5 class="card-title">{{this.name}}</h5>
+                                    <p>{{this.address}}</p>
+                                    <p class="card-text">{{this.description}}</p>
+                                    <div>
+                                        <a href="/users/gym-detail/?id={{this._id}}" class="btn btn-primary">Book
+                                            Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </main>
+</section>

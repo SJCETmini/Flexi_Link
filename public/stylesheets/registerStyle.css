@@ -1,0 +1,66 @@
+.container-1 {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3vh;
+    background-color: hsl(230, 73%, 5%);
+    /* background-image: url('/images/program-img3.jpg'); 
+    background-size: cover;
+    background-position: center; */
+  }
+  
+  .registration-form {
+    background-color: hsl(191, 92%, 14%);
+    width: 70vw;
+    padding: 20px;
+    border-radius: 10px; 
+    box-shadow:  5px 5px 10px hsl(169 88% 75%),-5px -5px 10px #ffffff;
+  }
+  
+  @media (min-width: 768px) {
+    .registration-form {
+      width: 50vw; /* Adjusted width for medium devices */
+    }
+  }
+
+  @media (min-width: 992px) {
+    .registration-form {
+      width: 40vw; /* Adjusted width for medium devices */
+    }
+    .form-control{
+        height: 2em;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .registration-form {
+      width: 25vw; /* Adjusted width for larger screen sizes */
+    }
+  }
+  
+  .form-group {
+    margin-bottom: 2vh;
+  }
+  
+  label {
+    font-size: 1em;
+    color: hsl(240 0% 100%);
+
+  }
+  
+  .btn-r {
+    /* display: inline-flex;
+    cursor: pointer; */
+    text-decoration: none;
+    border: none;
+    border-radius: 100vmax;
+    padding: 1em 2em;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    line-height: 1;
+    color: hsl(230 0% 0%);
+    background-color: hsl(169 88% 75%);
+  }
+  
