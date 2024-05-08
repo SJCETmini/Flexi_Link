@@ -3,25 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Ticket</title>
+  <title>Ticket</title>
   <link rel="stylesheet" href="/public/stylesheets/ticket.css">
+  
   <style>
-    /* Add responsive styles here */
+    body {
+     background-color: hsl(230 73% 5%) ; ;
+      margin:auto;
+    }
+
     .container {
       width: 250px;
-      height: fit-content;
-       /* Set maximum width for the container */
-      /*padding: 20px;  Add padding to the container */
-      box-sizing: border-box; /* Include padding in the width calculation */
+
+      box-sizing: border-box;
       text-align: center;
       margin:auto;
-
     }
 
     .m-ticket {
-     /* padding: 20px;  Add padding to the ticket */
-      background-color: #f7f7f7; /* Add background color to the ticket */
-      border-radius: 10px; /* Add border radius to the ticket */
+      background-color: #f7f7f7;
+      border-radius: 10px;
+      height:567px; 
+      width:auto;
+      background-color: white;
     }
 
     .movie-details {
@@ -30,7 +34,7 @@
     }
 
     .poster {
-     width: 200px;
+      width: 200px;
       height: 200px;
     }
 
@@ -41,72 +45,71 @@
     }
 
     @media screen and (max-width: 768px) {
-      /* Adjust styles for smaller screens */
       .container {
-        padding: 10px; /* Reduce padding for smaller screens */
-        height:70px;
+        padding: 10px;
+        height: 70px;
       }
     }
 
-    .scan{
-        width:30%;
+    .scan {
+      width: 30%;
     }
-a.button {
-  display: block;
-  width: fit-content; /* Adjust width as needed */
-  margin: 20px auto; /* Center the button horizontally */
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
+   
+    a.button {
+      display: block;
+      width: fit-content; 
+      margin: 20px auto;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
 
-a.button:hover {
-  background-color: #0056b3;
-}
-
-
-
+    a.button:hover {
+      background-color: #0056b3;
+    }
 
   </style>
 </head>
+
 <body>
-
-  <div class="container">
-
-    <div class="m-ticket">
-      <div class="movie-details">
-        <p class="m">GYM-Ticket</p>
-        <img src="images/crossfit.jpeg" class="poster">
-        <div class="movie">
-          <h4>{{gymname}}</h4>
-          <p>Issued Date: {{ formatedisdate }}</p>
-          <p>Expiry Date: {{ formattedexdate }}</p>
-          
-        </div>
-      </div>
-
+  
+<div class="container">
+ 
+  
+  <div class="m-ticket">
     
+    <div class="movie-details">
+      <p class="m">GYM-Ticket </p>
+      <img src="/images/Flexi Link Logo.png" class="poster ">
+      <div class="movie">
+        <h4>{{gymname}}</h4>
+        <p>Issued Date: {{ formatedisdate }}</p>
+        <p>Expiry Date: {{ formattedexdate }}</p>
 
-      <div class="ticket-details">
-        <img src="https://pngimg.com/uploads/qr_code/qr_code_PNG2.png" class="scan " >
-        <div class="ticket">  
-          <h6>BOOKING ID: {{id}}</h6>
-        </div>
       </div>
+    </div>
 
-      <div class="info-cancel">
-        Cancellation not available
+    <div class="ticket-details">
+      <img src="https://pngimg.com/uploads/qr_code/qr_code_PNG2.png" class="scan ">
+      <div class="ticket">
+        <h6>BOOKING ID: {{id}}</h6>
       </div>
+    </div>
 
-      <div class="total-amount">
-        <p>Total Amount</p>
-        <p>Rs. {{price}}</p>
-      </div>
-    </div><!---m-ticket end---->
-  </div><!---container end---->
+    <div class="info-cancel">
+      Cancellation not available
+    </div>
+
+    <div class="total-amount">
+      <p>Total Amount</p>
+      <p>Rs. {{price}}</p>
+    </div>
+  </div><!---m-ticket end---->
+  
+</div><!---container end---->
 
 <a href="/users" class="button">back to home</a>
 

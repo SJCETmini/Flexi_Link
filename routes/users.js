@@ -128,14 +128,17 @@ router.get('/', function(req, res, next) {
       const longitude = location.ll[0]; // Longitude from geolocation result
       const latitude = location.ll[1]; // Latitude from geolocation result
 
-      gymhelpers.findNearestGyms(longitude, latitude, 1).then((closegym)=>{
+      gymhelpers.findNearestGyms(longitude, latitude, 5).then((closegym)=>{
         console.log(closegym)
-        res.render('./users/dashboard', { user: true, layout: 'userLayout' ,gymscloser:closegym,userloggedin:true});
+        res.render('./users/dashboard', { 
+          user: true, 
+          name:req.session.user.name, 
+          layout: 'userLayout',
+          gymscloser:closegym,
+          userloggedin:true
+        });
       });
-      })
-
-      
-     
+    }) 
   })}
   else{
     
@@ -148,7 +151,7 @@ router.get('/recent', function(req, res, next) {
   ticketgenerator.findAllwithid(req.session.user._id).then((response)=>{
    // =ticketgenerator.formatDateTime(new Date(response.issueddate))
   console.log(response.formattedisdate)
-    res.render('./users/recentBookings', {user:true, layout: 'userLayout',response});
+    res.render('./users/recentBookings', {user:true, name:req.session.user.name, layout: 'userLayout',response});
   })
   //console.log("hi")
 });
@@ -157,7 +160,7 @@ router.get('/membership-card', function(req, res, next) {
   
   membershipgenerator.findAllwithid(req.session.user._id).then((response)=>{
 
-    res.render('./users/membership-card', {user:true, layout: 'userLayout',response});
+    res.render('./users/membership-card', {user:true, name:req.session.user.name, layout: 'userLayout',response});
    
   })
 
