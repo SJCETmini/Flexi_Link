@@ -281,18 +281,28 @@ router.get('/owner-gym-detail', async (req, res, next) => {
   try {
       const gymId = req.query.id;
       console.log("GYM ID:", gymId);
+
+      //ticket.calculateincomefromtic(gymId)
+
+      
+
+      
       
       // Check if gymId is provided and is a valid format
       if (!gymId) {
           return res.status(400).send('Gym ID is required');
       }
       
-      const [tickets, details, membership] = await Promise.all([
-          ticket.findAllwithGym(gymId),
-          gymregister.findgyms(gymId),
-          membershipgenerator.findAllwithGym(gymId)
-      ]);
+      const [tickets, details, membership, noofmembers,dailyfeeuser,tickdailyamt,tickmemamt] = await Promise.all([
+        ticket.findAllwithGym(gymId),
+        gymregister.findgyms(gymId),
+        membershipgenerator.findAllwithGym(gymId),
+        membershipgenerator.findthenumberofmembers(gymId),
+        ticket.findcureentmonthtic(gymId),ticket.calculateincomefromtic(gymId),
+        membershipgenerator.findRevenue(gymId)
+    ]);
 
+    var total=tickdailyamt+tickmemamt
       // console.log("Tickets",tickets)
       // console.log("Coordinates",details.location.coordinates)
       // console.log("Amneties", details.aminities)
@@ -305,7 +315,7 @@ router.get('/owner-gym-detail', async (req, res, next) => {
         "CCTV": "fa-solid fa-eye",
         "Lounge": "fa-solid fa-couch"
       };
-      res.render('gym-owner/owner-gym-detail', { tickets, details, membership, amenities: details.aminities, iconMap,gymId});
+      res.render('gym-owner/owner-gym-detail', { tickets,noofmembers, details, membership, amenities: details.aminities, iconMap,gymId,dailyfeeuser,total});
   } catch (error) {
       console.error('Error:', error);
       res.status(500).send('An error occurred while fetching gym details');

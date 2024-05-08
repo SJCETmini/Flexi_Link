@@ -63,6 +63,12 @@ function generateMembershipID(length) {
     return membershipID;
 }
 
+function findthenumberofmembers(id){
+    return new Promise(async(resolve,reject)=>{
+        var x=await membership.countDocuments({gymid:id})
+        resolve(x)
+    })
+}
 
 
 function formatDateTime(date) {
@@ -169,6 +175,25 @@ function findAllwithGym(gymId) {
     });
 }
 
+function findRevenue(id){
+    return new Promise(async(resolve,reject)=>{
+        const now = new Date();
+        now.setDate(now.getDate() -30);
+        //const tick=await ticket.find({gymid:id,issueddate:{$gte:now}})
+        const allmemberships = await membership.find({ gymid: id,issueddate:{$gte:now} })
+
+        var price=0
+        allmemberships.forEach(tic=>{
+            price=price+tic.price
+
+        })
+        //console.log(price)
+        resolve(price)
+
+        
+    })
+}
+
 
 
 
@@ -177,5 +202,7 @@ module.exports={
     formatDateTime,
     findAllwithid,
     findMymembership,
-    findAllwithGym
+    findAllwithGym,
+    findthenumberofmembers,
+    findRevenue
 }
