@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const crypto = require('crypto');
+const { resolve } = require('path');
 
 const TicketSchema = new Schema({
     gymid: { type: Schema.Types.ObjectId, ref: 'Gym' },
@@ -180,11 +181,43 @@ function verifyTicket(num, tic) {
     });
 }
 
+
+function findcureentmonthtic(gym){
+    return new Promise(async(resolve,reject)=>{
+        const now = new Date();
+        now.setDate(now.getDate() -30);
+        const tick=await ticket.countDocuments({gymid:gym,issueddate:{$gte:now}})
+        resolve(tick)
+    })
+  }
+
+  function calculateincomefromtic(id){
+    return new Promise(async(resolve,reject)=>{
+
+        const now = new Date();
+        now.setDate(now.getDate() -30);
+        const tick=await ticket.find({gymid:id,issueddate:{$gte:now}})
+        console.log(tick)
+        var price=0
+        tick.forEach(tic=>{
+            price=price+tic.price
+
+        })
+        resolve(price)
+       
+      
+
+    })
+  }
+
+
 module.exports={
     generateTicket,
     formatDateTime,
     findAllwithid,
     findMyticket,
     findAllwithGym,
-    verifyTicket
+    verifyTicket,
+    findcureentmonthtic,
+    calculateincomefromtic
 }
