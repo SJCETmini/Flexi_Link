@@ -234,10 +234,13 @@ router.get('/gym-detail', function(req, res, next) {
       "CCTV": "fa-solid fa-eye",
       "Lounge": "fa-solid fa-couch"
     };
+    console.log(response.location.coordinates[0])
     console.log("Amneties", response.aminities)
     res.render('./users/gym-detail', {
       user: true,
       details: response,
+      longitude:response.location.coordinates[0],
+      lattitude:response.location.coordinates[1],
       status: isOpen,
       amenities: response.aminities,
       iconMap,

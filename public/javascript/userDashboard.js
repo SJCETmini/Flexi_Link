@@ -96,8 +96,9 @@ window.addEventListener('resize', function () {
 // gym-detail
 
 //map
-var x = 9.708965868293296;
-var y = 76.67254665207768;
+var x = document.getElementById("moonjan").innerHTML;
+
+var y = document.getElementById("moonjan2").innerHTML;
 var map = L.map('map').setView([x, y], 12);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
