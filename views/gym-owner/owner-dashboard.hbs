@@ -83,7 +83,7 @@
             </div>
           </div>
           <h1 class="owner-card-title">{{name}}</h1>
-          <p id="description" class="owner-card-description">{{this.description}}</p>
+          <p id="description" class="owner-card-description description">{{this.description}}</p>
           <a href="gymowner/owner-gym-detail/?id={{this._id}}" class="owner-item-link">
             Know more
             <svg width="16px" height="16px" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="#d0b200"
@@ -104,18 +104,21 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var descriptionElement = document.getElementById("description");
-        var readMoreLink = document.getElementById("readMoreLink");
+        var descriptions = document.getElementsByClassName("description");
         var maxLength = 150; // Maximum length of description
 
-        var description = descriptionElement.textContent.trim();
-        if (description.length > maxLength) {
-            var shortenedDescription = description.substr(0, maxLength) + " ";
-            var moreText = document.createElement("span");
-            moreText.innerHTML = "<strong>   more...</strong>";
-            descriptionElement.textContent = "";
-            descriptionElement.appendChild(document.createTextNode(shortenedDescription));
-            descriptionElement.appendChild(moreText);
+        for (var i = 0; i < descriptions.length; i++) {
+            var descriptionElement = descriptions[i];
+            var description = descriptionElement.textContent.trim();
+
+            if (description.length > maxLength) {
+                var shortenedDescription = description.substr(0, maxLength) + " ";
+                var moreText = document.createElement("span");
+                moreText.innerHTML = "<strong>more...</strong>";
+                descriptionElement.textContent = "";
+                descriptionElement.appendChild(document.createTextNode(shortenedDescription));
+                descriptionElement.appendChild(moreText);
+            }
         }
     });
 </script>

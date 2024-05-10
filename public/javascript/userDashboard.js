@@ -111,8 +111,8 @@ function navigateToDirection() {
             function (position) {
                 var userLatitude = position.coords.latitude;
                 var userLongitude = position.coords.longitude;
-                var destinationLatitude = 9.7271004807413; // Example latitude
-                var destinationLongitude = 76.7260518790598; // Example longitude
+                var destinationLatitude = x; // Example latitude
+                var destinationLongitude = y; // Example longitude
                 var url = `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${userLatitude}%2C${userLongitude}%3B${destinationLatitude}%2C${destinationLongitude}`;
                 window.open(url, '_blank');
             },

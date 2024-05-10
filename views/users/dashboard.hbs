@@ -81,7 +81,7 @@
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <h5 class="card-title">{{this.name}}</h5>
                                     <p>{{this.address}}</p>
-                                    <p id="description" class="card-text">{{this.description}}</p>
+                                    <p class="card-text description">{{this.description}}</p>
                                     <div>
                                         <a href="/users/gym-detail/?id={{this._id}}" class="btn btn-primary">Book
                                             Now</a>
@@ -120,18 +120,22 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var descriptionElement = document.getElementById("description");
-        var readMoreLink = document.getElementById("readMoreLink");
-        var maxLength = 200; // Maximum length of description
+        var descriptions = document.getElementsByClassName("description");
+        var maxLength = 150; // Maximum length of description
 
-        var description = descriptionElement.textContent.trim();
-        if (description.length > maxLength) {
-            var shortenedDescription = description.substr(0, maxLength) + " ";
-            var moreText = document.createElement("span");
-            moreText.innerHTML = "<strong>   more...</strong>";
-            descriptionElement.textContent = "";
-            descriptionElement.appendChild(document.createTextNode(shortenedDescription));
-            descriptionElement.appendChild(moreText);
+        for (var i = 0; i < descriptions.length; i++) {
+            var descriptionElement = descriptions[i];
+            var description = descriptionElement.textContent.trim();
+
+            if (description.length > maxLength) {
+                var shortenedDescription = description.substr(0, maxLength) + " ";
+                var moreText = document.createElement("span");
+                moreText.innerHTML = "<strong>more...</strong>";
+                descriptionElement.textContent = "";
+                descriptionElement.appendChild(document.createTextNode(shortenedDescription));
+                descriptionElement.appendChild(moreText);
+            }
         }
     });
+
 </script>
