@@ -124,12 +124,12 @@ router.get('/', function(req, res, next) {
 
     resp.on('end', function() {
       const location = geoip.lookup(ipaddress);
-      console.log(location);
+      console.log("LOCATION",location);
       const longitude = location.ll[0]; // Longitude from geolocation result
       const latitude = location.ll[1]; // Latitude from geolocation result
 
       gymhelpers.findNearestGyms(longitude, latitude, 5).then((closegym)=>{
-        console.log(closegym)
+        // console.log(closegym)
         res.render('./users/dashboard', { 
           user: true, 
           name:req.session.user.name, 
@@ -234,8 +234,8 @@ router.get('/gym-detail', function(req, res, next) {
       "CCTV": "fa-solid fa-eye",
       "Lounge": "fa-solid fa-couch"
     };
-    console.log(response.location.coordinates[0])
-    console.log("Amneties", response.aminities)
+    // console.log("loc:",response.location.coordinates[0])
+    // console.log("Amneties", response.aminities)
     res.render('./users/gym-detail', {
       user: true,
       details: response,
