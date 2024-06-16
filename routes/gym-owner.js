@@ -29,7 +29,7 @@ const verifyLogin=(req,res,next)=>{
   if(req.session.ownerloggedIn){
     next()
   }else{
-    res.redirect('/gymowner/register')
+    res.redirect('/gym-owner/login')
   }
 }
 
@@ -216,6 +216,11 @@ router.get('/apply-for-monetization',verifyLogin,(req,res)=>{
 
 })
 
+router.get("/analytics",(req,res)=>{
+  res.render("gym-owner/analytics")
+
+})
+
 router.get('/videos', async (req, res) => {
   try {
     const videoId = '661a3b70b70955d23acab3ea'
@@ -283,11 +288,6 @@ router.get('/owner-gym-detail', async (req, res, next) => {
       console.log("GYM ID:", gymId);
 
       //ticket.calculateincomefromtic(gymId)
-
-      
-
-      
-      
       // Check if gymId is provided and is a valid format
       if (!gymId) {
           return res.status(400).send('Gym ID is required');
