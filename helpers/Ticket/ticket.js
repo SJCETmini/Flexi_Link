@@ -111,6 +111,10 @@ function generateTicket(id,name,price,userid,username){
     })
 }
 
+async function getTicketForUserOnDate(userId, gymid, date) {
+    return await ticket.findOne({ userId: userId, gymid: gymid, date: date });
+}
+
 function findAllwithid(id){
     return new Promise(async(resolve,reject)=>{
         const all = await ticket.find({userid:id}).lean();
@@ -241,6 +245,7 @@ function findcureentmonthtic(gym){
 module.exports={
     getTicketCountForUser,
     generateTicket,
+    getTicketForUserOnDate,
     formatDateTime,
     findAllwithid,
     findMyticket,

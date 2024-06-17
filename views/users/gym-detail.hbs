@@ -185,7 +185,6 @@
                                         </ul>
                                         <a href="/users/member/payment?id={{details._id}}"
                                             class="price-btn price-btn-standard">Book now</a>
-                                        <a href="/users/member/payment?id={{details._id}}"></a>
                                     </div>
                                 </div>
                             </div>
@@ -241,7 +240,8 @@
                 });
             } else {
                 // Display a message that the ticket limit has been reached
-                //alert('Ticket limit for this gym has been reached for this month.');
+                console.log("Message:",data.message)
+                alert(data.message);
                 window.location.href = `/users/member/payment?id=${gymid}`;
             }
         })

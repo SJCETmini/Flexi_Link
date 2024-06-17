@@ -68,15 +68,26 @@ router.get('/display-membership-card',(req,res)=>{
 router.post('/check-ticket-count', async (req, res) => {
   try {
       const { gymid } = req.body;
-      const userId = req.session.user._id; 
+      const userId = req.session.user._id;
+      
+      const currentDate = new Date().toISOString().split('T')[0];
+      console.log(currentDate)
+      // Check if a ticket already exists for this user, gym, and date
+      const existingTicket = await ticketgenerator.getTicketForUserOnDate(userId, gymid, currentDate);
+      console.log("EXISTING:",existingTicket)
 
-      const ticketCount = await ticketgenerator.getTicketCountForUser(userId, gymid);
-      const maxTicketsPerMonth = 2;
-
-      if (ticketCount < maxTicketsPerMonth) {
-          res.json({ allowed: true });
+      if (!existingTicket) {
+          res.json({ allowed: false, message: 'Ticket already generated for today' });
       } else {
-          res.json({ allowed: false });
+          // Check the ticket count for the current month
+          const ticketCount = await ticketgenerator.getTicketCountForUser(userId, gymid);
+          const maxTicketsPerMonth = 3;
+
+          if (ticketCount < maxTicketsPerMonth) {
+              res.json({ allowed: true });
+          } else {
+              res.json({ allowed: false, message: 'Maximum ticket limit reached for the month' });
+          }
       }
   } catch (error) {
       console.error('Error checking ticket count:', error);
