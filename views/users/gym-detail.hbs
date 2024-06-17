@@ -202,39 +202,54 @@
 
 <script>
     document.getElementById("bookNowBtn").addEventListener("click", function () {
-        // Get the gym name from the script tag directly
-        const gymName = "{{details.name}}"; // Accessing the gym name from Handlebars
-
-        // Get other details similarly
+        const gymName = "{{details.name}}"; // Assuming details.name is accessible from Handlebars
         const dailyFee = {{ details.dailyFee }};
-    const gymid = "{{details._id}}"
+        const gymid = "{{details._id}}";
 
-    // Create an object with the details
-    const bookingDetails = {
-        gymName: gymName,
-        dailyFee: dailyFee,
-        gymid: gymid
-        // Add more details here if needed
-    };
+        const bookingDetails = {
+            gymName: gymName,
+            dailyFee: dailyFee,
+            gymid: gymid
+        };
 
-    // Send the details to the server
-    fetch('/users/stripe-checkout', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(bookingDetails)
-    })
+        // Send request to server to check ticket count
+        fetch('/users/check-ticket-count', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ gymid: gymid })
+        })
         .then(response => response.json())
         .then(data => {
-            // Redirect to the URL received from the server
-            window.location.href = data.url;
+            if (data.allowed) {
+                // If allowed to proceed, send booking details to server for Stripe payment
+                fetch('/users/stripe-checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bookingDetails)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Redirect to the URL received from the server
+                    window.location.href = data.url;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } else {
+                // Display a message that the ticket limit has been reached
+                //alert('Ticket limit for this gym has been reached for this month.');
+                window.location.href = `/users/member/payment?id=${gymid}`;
+            }
         })
         .catch(error => {
-            // Handle errors if any
             console.error('Error:', error);
         });
     });
+
 
 </script>
 

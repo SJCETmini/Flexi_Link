@@ -59,6 +59,33 @@ function formatDateTime(date) {
 
 const ticket = mongoose.model('ticket', TicketSchema);
 
+async function getTicketCountForUser(userId, gymId) {
+    try {
+        const currentDate = new Date();
+        const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0, 23, 59, 59, 999);
+
+        console.log("USERID:", userId);
+        console.log("GYMID:", gymId);
+        console.log("Start of Month:", startOfMonth);
+        console.log("End of Month:", endOfMonth);
+        const userObjectId = mongoose.Types.ObjectId.createFromHexString(userId);
+        const gymObjectId = mongoose.Types.ObjectId.createFromHexString(gymId);
+
+        const ticketCount = await ticket.countDocuments({
+            userid: userObjectId,
+            gymid: gymObjectId,
+            issueddate: { $gte: startOfMonth, $lte: endOfMonth }
+        });
+        console.log("Ticket Count:", ticketCount);
+        return ticketCount;
+    } catch (error) {
+        console.error('Error getting ticket count:', error);
+        throw new Error('Error fetching ticket count');
+    }
+};
+
+
 function generateTicket(id,name,price,userid,username){
     return new Promise(async(resolve,reject)=>{
         const newticket= new ticket()
@@ -212,6 +239,7 @@ function findcureentmonthtic(gym){
 
 
 module.exports={
+    getTicketCountForUser,
     generateTicket,
     formatDateTime,
     findAllwithid,

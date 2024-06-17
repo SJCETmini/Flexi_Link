@@ -65,6 +65,25 @@ router.get('/display-membership-card',(req,res)=>{
   // res.render("./users/membership-details");
 })
 
+router.post('/check-ticket-count', async (req, res) => {
+  try {
+      const { gymid } = req.body;
+      const userId = req.session.user._id; 
+
+      const ticketCount = await ticketgenerator.getTicketCountForUser(userId, gymid);
+      const maxTicketsPerMonth = 2;
+
+      if (ticketCount < maxTicketsPerMonth) {
+          res.json({ allowed: true });
+      } else {
+          res.json({ allowed: false });
+      }
+  } catch (error) {
+      console.error('Error checking ticket count:', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 router.get('/my_ticket',(req,res)=>{
   if(!req.query.ticketGenerated){
