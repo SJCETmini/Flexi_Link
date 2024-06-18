@@ -111,9 +111,24 @@ function generateTicket(id,name,price,userid,username){
     })
 }
 
-async function getTicketForUserOnDate(userId, gymid, date) {
-    return await ticket.findOne({ userId: userId, gymid: gymid, date: date });
-}
+async function getValidTicketForUser(userId, gymId) {
+    try {
+        const userObjectId = mongoose.Types.ObjectId.createFromHexString(userId);
+        const gymObjectId = mongoose.Types.ObjectId.createFromHexString(gymId);
+      const currentDate = new Date();
+  
+      const existing = await ticket.findOne({
+        userid: userObjectId,
+        gymid: gymObjectId,
+        expirydate: { $gt: currentDate }
+      });
+  
+      return existing;
+    } catch (error) {
+      throw new Error(`Failed to get ticket for user: ${error.message}`);
+    }
+  }
+  
 
 function findAllwithid(id){
     return new Promise(async(resolve,reject)=>{
@@ -245,7 +260,7 @@ function findcureentmonthtic(gym){
 module.exports={
     getTicketCountForUser,
     generateTicket,
-    getTicketForUserOnDate,
+    getValidTicketForUser,
     formatDateTime,
     findAllwithid,
     findMyticket,

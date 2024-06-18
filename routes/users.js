@@ -70,18 +70,16 @@ router.post('/check-ticket-count', async (req, res) => {
       const { gymid } = req.body;
       const userId = req.session.user._id;
       
-      const currentDate = new Date().toISOString().split('T')[0];
-      console.log(currentDate)
       // Check if a ticket already exists for this user, gym, and date
-      const existingTicket = await ticketgenerator.getTicketForUserOnDate(userId, gymid, currentDate);
+      const existingTicket = await ticketgenerator.getValidTicketForUser(userId, gymid);
       console.log("EXISTING:",existingTicket)
 
-      if (!existingTicket) {
+      if (existingTicket) {
           res.json({ allowed: false, message: 'Ticket already generated for today' });
       } else {
           // Check the ticket count for the current month
           const ticketCount = await ticketgenerator.getTicketCountForUser(userId, gymid);
-          const maxTicketsPerMonth = 3;
+          const maxTicketsPerMonth = 2;
 
           if (ticketCount < maxTicketsPerMonth) {
               res.json({ allowed: true });
