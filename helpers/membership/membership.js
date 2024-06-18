@@ -95,6 +95,7 @@ function findAllwithid(id){
       
             const promises = all.map(async(element) => {
             element.expired = membershipExpiration(element)
+            console.log("Expiration:",element.expired)
             element.formattedexdate= new Date(element.expirydate).toLocaleDateString('en-GB', {
                 day: '2-digit',
                 month: '2-digit',

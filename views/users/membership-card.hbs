@@ -43,7 +43,7 @@
                             </section>
                             <section class="col-md-6">
                                 <div class="title">Status</div>
-                                <div class="status active">Active</div>
+                                <div class="status {{#if expired}}active{{else}}expired{{/if}}">{{#if expired}}Active{{else}}Expired{{/if}}</div>
                             </section>
                         </div>
                     </div>
