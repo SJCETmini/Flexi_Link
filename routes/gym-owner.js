@@ -40,7 +40,9 @@ router.get("/registergym", verifyLogin,function (req, res, next) {
 });
 
 router.get("/removegym",(req,res)=>{
-  console.log(req.query.id)
+  x=req.query.id
+  console.log('gym id : ',req.query.id)
+  console.log(x.length)
   gymregister.removeGym(req.query.id).then((response)=>{
     console.log(response)
     res.redirect('/gymowner')

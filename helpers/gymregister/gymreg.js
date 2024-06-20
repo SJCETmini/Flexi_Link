@@ -296,14 +296,15 @@ function sortGym(type) {
 }
 
 function removeGym(id){
+
   return new Promise(async(resolve,reject)=>{
 
-    const gym= await Gym.findOneAndDelete(id)
+    const x=await Gym.deleteOne({ _id: id });
+     
 
-    resolve(gym)
-
-
+      resolve(x);
   })
+
 }
 
 
