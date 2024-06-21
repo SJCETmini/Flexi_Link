@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const revenue = require('../Ticket/ticket');
+const { response } = require('express');
 // Define schema for gym
 const gymSchema = new Schema({
   name: String,
@@ -307,8 +308,29 @@ function removeGym(id){
 
 }
 
+function detils_for_analytics(id){
+  return new Promise(async(resolve,reject)=>{
+
+    console.log(id)
+    const gyms = await Gym.find({ owner: id }).select('_id name');
+
+    console.log(gyms)
+    revenue.calculate_revenue_for_all_gym(gyms).then((response)=>{
+      //console.log('caught')
+      //console.log(response)
+      resolve(response)
+    })
+
+    //resolve()
+
+  })
+
+}
+
+
+
 
 
 module.exports = { calculatedailyfee,
 gymregisterstep1,gymregisterstep2,gymregisterstep3,chk,
-getdetailsofownersgym,ownerFind,findNearestGyms,gymregisterfinal,findgyms,findgymformembership,sortGym,removeGym};
+getdetailsofownersgym,ownerFind,findNearestGyms,gymregisterfinal,findgyms,findgymformembership,sortGym,removeGym,detils_for_analytics};

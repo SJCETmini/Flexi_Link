@@ -205,5 +205,6 @@ module.exports={
     findMymembership,
     findAllwithGym,
     findthenumberofmembers,
-    findRevenue
+    findRevenue,
+    membership
 }

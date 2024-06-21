@@ -219,7 +219,13 @@ router.get('/apply-for-monetization',verifyLogin,(req,res)=>{
 })
 
 router.get("/analytics",(req,res)=>{
-  res.render("gym-owner/analytics")
+  gymregister.detils_for_analytics(req.session.gymowner._id).then((response)=>{
+    //console.log('final')
+    //console.log('gg',response)
+    console.log(response)
+    res.render("gym-owner/analytics")
+  })
+  
 
 })
 

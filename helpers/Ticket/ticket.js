@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const crypto = require('crypto');
 const { resolve } = require('path');
-
+const membership = require('../membership/membership')
 const TicketSchema = new Schema({
     gymid: { type: Schema.Types.ObjectId, ref: 'Gym' },
     userid: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -256,6 +256,56 @@ function findcureentmonthtic(gym){
     })
   }
 
+  function calculate_revenue_for_all_gym(gyms){
+    return new Promise(async(resolve,reject)=>{
+        const now = new Date();
+    now.setDate(now.getDate() - 30);
+
+    let wholeRevenue = 0;
+    let totalMemberships = 0;
+
+    // Iterate over each gym and calculate the revenue
+    const revenuePromises = gyms.map(async (gym) => {
+      const tickets = await ticket.find({ gymid: gym._id, issueddate: { $gte: now } });
+      let totalRevenue = 0;
+
+      tickets.forEach(ticket => {
+        totalRevenue += ticket.price;
+      });
+      const memberships = await membership.membership.find({ gymid: gym._id, issueddate: { $gte: now } });
+      let membershipRevenue = 0;
+      let membershipCount = memberships.length;
+      memberships.forEach(membership => {
+        membershipRevenue += membership.price;
+      });
+
+      // Combine the revenues
+      const finalRevenue = totalRevenue + membershipRevenue;
+
+      wholeRevenue += finalRevenue;
+      totalMemberships += membershipCount;
+
+      return { _id: gym._id, name: gym.name, revenue: finalRevenue };
+    });
+
+    // Wait for all revenue calculations to complete
+    const gymsWithRevenue = await Promise.all(revenuePromises);
+    //console.log('hey hello')
+    //console.log('Whole gym revenue',wholeRevenue)
+    //console.log(gymsWithRevenue)
+    let totalgym=gymsWithRevenue.length
+    const result = {
+        gymsWithRevenue,
+        wholeRevenue,
+        totalMemberships,
+        totalgym
+      };
+    resolve(result);
+
+
+    })
+  }
+
 
 module.exports={
     getTicketCountForUser,
@@ -267,5 +317,6 @@ module.exports={
     findAllwithGym,
     verifyTicket,
     findcureentmonthtic,
-    calculateincomefromtic
+    calculateincomefromtic,
+    calculate_revenue_for_all_gym
 }
