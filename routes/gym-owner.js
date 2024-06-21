@@ -223,7 +223,7 @@ router.get("/analytics",(req,res)=>{
     //console.log('final')
     //console.log('gg',response)
     console.log(response)
-    res.render("gym-owner/analytics")
+    res.render("gym-owner/analytics",{response})
   })
   
 
