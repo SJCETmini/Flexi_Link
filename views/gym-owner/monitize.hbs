@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Application</title>
+    <style>
+        .condition {
+            margin: 10px 0;
+        }
+        .met {
+            color: green;
+        }
+        .not-met {
+            color: red;
+        }
+        .button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Verification Application</h1>
+
+    <div class="condition">
+        Members Enrolled: 
+        {{#if conditions.membersEnrolled}}
+            <span class="met">&#10003;</span> <!-- Tick mark -->
+        {{else}}
+            <span class="not-met">&#10007;</span> <!-- Cross mark -->
+        {{/if}}
+    </div>
+    
+    <div class="condition">
+        Monthly Revenue: 
+        {{#if conditions.monthlyRevenue}}
+            <span class="met">&#10003;</span> <!-- Tick mark -->
+        {{else}}
+            <span class="not-met">&#10007;</span> <!-- Cross mark -->
+        {{/if}}
+    </div>
+    
+    <div class="condition">
+        Average Rating: 
+        {{#if conditions.averageRating}}
+            <span class="met">&#10003;</span> <!-- Tick mark -->
+        {{else}}
+            <span class="not-met">&#10007;</span> <!-- Cross mark -->
+        {{/if}}
+    </div>
+    
+    <button class="button" {{#unless conditions.allMet}}disabled{{/unless}}>
+        Proceed with Application
+    </button>
+</body>
+</html>

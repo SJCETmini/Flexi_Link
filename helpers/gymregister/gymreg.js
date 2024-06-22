@@ -327,6 +327,12 @@ function detils_for_analytics(id){
 
 }
 
+function requirement_monitize(id){
+  return new Promise(async(resolve,reject)=>{
+    const gyms = await Gym.find({ owner: id }).select('_id');
+  })
+}
+
 
 
 
