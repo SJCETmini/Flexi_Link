@@ -49,7 +49,7 @@
             </div>
         </div>
     </nav>
-    <div class="owner-gym-section pt-4">
+    <div class="owner-gym-section analytics-section pt-4">
 
         <main class="p-md-5">
             <section class="container-fluid stats-section">
@@ -58,21 +58,21 @@
                         <div class="stat-card">
                             <i class="fas fa-users"></i>
                             <h5>Total Gyms</h5>
-                            <p class="stat-value">{{noofmembers}}</p>
+                            <p class="stat-value">{{response.totalgym}}</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-5 col-sm-6 mb-4">
                         <div class="stat-card">
                             <i class="fas fa-calendar-alt"></i>
                             <h5>Memberships</h5>
-                            <p class="stat-value">{{dailyfeeuser}}</p>
+                            <p class="stat-value">{{response.totalMemberships}}</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-5 col-sm-6 mb-4">
                         <div class="stat-card">
                             <i class="fa-solid fa-chart-pie"></i>
                             <h5>Total Monthly Revenue</h5>
-                            <p class="stat-value">Rs {{total}}</p>
+                            <p class="stat-value">Rs {{response.wholeRevenue}}</p>
                         </div>
                     </div>
                 </div>
@@ -88,17 +88,11 @@
                             <i class="fas fa-calendar-alt me-2"></i> Gyms
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link rounded-pill px-4 py-2" id="registeredUsers-tab" data-toggle="pill"
-                            href="#registeredUsers" role="tab" aria-controls="registeredUsers" aria-selected="false">
-                            <i class="fas fa-users me-2"></i> Registered Users
-                        </a>
-                    </li>
                 </ul>
                 <!-- Tab Content -->
                 <div class="tab-content px-3">
 
-                    <!-- Daily Fee Users Tab Content -->
+                    <!-- Gyms Tab Content -->
                     <div class="tab-pane fade show active" id="dailyFeeUsers">
                         <div class="row dark rounded-top py-2 fw-bold">
                             <div>Gym Id</div>
@@ -106,34 +100,15 @@
                             <div>Total Revenue</div>
                         </div>
 
-                        {{#each tickets}}
+                        {{#each response.gymsWithRevenue}}
                         <div class="row py-2 border-bottom">
-                            <div>{{this.ticketid}}</div>
-                            <div class="overflow-auto">{{this.username}}</div>
-                            <div>{{this.formattedisdate}}</div>
+                            <div>{{_id}}</div>
+                            <div class="overflow-auto">{{name}}</div>
+                            <div>{{revenue}}</div>
                         </div>
                         {{/each}}
 
                     </div>
-
-                    <!-- Registered Users Tab Content -->
-                    <div class="tab-pane fade" id="registeredUsers">
-                        <div class="row dark rounded-top py-2 fw-bold">
-                            <div>Membership Id</div>
-                            <div>User Name</div>
-                            <div>Valid Date</div>
-                        </div>
-
-                        {{#each membership}}
-                        <div class="row py-2 border-bottom">
-                            <div>{{this.membershipid}}</div>
-                            <div class="overflow-auto">{{this.username}}</div>
-                            <div>{{formattedisdate}} - {{formattedexdate}}</div>
-                        </div>
-                        {{/each}}
-
-                    </div>
-
                 </div>
             </section>
 

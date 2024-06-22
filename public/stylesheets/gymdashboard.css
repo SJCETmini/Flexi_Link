@@ -10,6 +10,15 @@
 }
 
 /* NAV BAR */
+
+.navbar{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1rem;
+  z-index: 1000;
+}
+
 .navbar-nav .nav-item .nav-link {
   color: hsl(169, 88%, 75%);
   text-decoration: none;
@@ -55,6 +64,11 @@
   }
 }
 
+
+
+.owner-gym-section, .analytics-section, .owner-dashboard-section {
+  margin-top: 75px !important;
+}
 /* DASHBOARD */
 
 .owner-dashboard-section .jumbotron {
@@ -96,6 +110,16 @@
   background: linear-gradient(to right, rgba(27, 253, 156, 0.1) 1%, transparent 40%, transparent 60%, rgba(27, 253, 156, 0.1) 100%);
   color: var(--green);
   box-shadow: inset 0 0 10px rgba(27, 253, 156, 0.4), 0 0 9px 3px rgba(27, 253, 156, 0.1);
+}
+
+@media (max-width: 576px) {
+  .owner-dashboard-section .jumbotron h1 {
+    font-size: 1.6rem;
+  }
+  .owner-dashboard-section .add-enterprice {
+    font-size: 10px !important;
+    padding: 4px !important;
+  }
 }
 
 .owner-dashboard-section .add-enterprice:hover {
@@ -616,6 +640,11 @@
   padding-right: 30px;
 }
 
+.owner-gym-section h1{
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
 .owner-gym-section .stats-section .stat-card {
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -637,7 +666,7 @@
   margin-bottom: 15px;
 }
 
-.owner-gym-section .stats-section .stat-card h5 {
+.owner-gym-section .stats-section .stat-card h5{
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 10px;
@@ -811,6 +840,10 @@
     font-size: 1rem;
   }
 
+  .owner-gym-section h1{
+    font-size: 2rem;
+  } 
+
   .owner-gym-section .stats-section .stat-card i,
   .owner-gym-section .stats-section .stat-card .stat-value{
     font-size: 1.5rem;
@@ -841,5 +874,21 @@
 
   .owner-gym-section .btn {
     font-size: 0.7rem;
+  }
+}
+
+
+@media (max-width: 400px) {
+  #brand-text {
+    font-size: 1rem;
+  }
+
+  .navbar-toggler {
+    font-size: 0.89rem;
+    padding: 0px;
+  }
+
+  .navbar i {
+    margin-left: 0px !important;
   }
 }
