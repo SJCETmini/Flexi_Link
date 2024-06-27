@@ -294,11 +294,23 @@ function findcureentmonthtic(gym){
     //console.log('Whole gym revenue',wholeRevenue)
     //console.log(gymsWithRevenue)
     let totalgym=gymsWithRevenue.length
+    var membercondition=false
+    var actualrevenue=false
+    var rating=false
+    if (totalMemberships>1) {
+        membercondition=true
+    }
+    if (wholeRevenue>1000) {
+        actualrevenue=true
+    }
     const result = {
         gymsWithRevenue,
         wholeRevenue,
         totalMemberships,
-        totalgym
+        totalgym,
+        membercondition,
+        actualrevenue,
+        rating
       };
     resolve(result);
 

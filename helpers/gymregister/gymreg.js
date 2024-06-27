@@ -330,6 +330,15 @@ function detils_for_analytics(id){
 function requirement_monitize(id){
   return new Promise(async(resolve,reject)=>{
     const gyms = await Gym.find({ owner: id }).select('_id');
+    revenue.calculate_revenue_for_all_gym(gyms).then((response)=>{
+      const data_for_purpose={
+        monthlyRevenue:response.actualrevenue,
+        membersEnrolled:response.membercondition,
+        averageRating:response.rating
+      }
+
+      resolve(data_for_purpose)
+    })
   })
 }
 
@@ -339,4 +348,5 @@ function requirement_monitize(id){
 
 module.exports = { calculatedailyfee,
 gymregisterstep1,gymregisterstep2,gymregisterstep3,chk,
-getdetailsofownersgym,ownerFind,findNearestGyms,gymregisterfinal,findgyms,findgymformembership,sortGym,removeGym,detils_for_analytics};
+getdetailsofownersgym,ownerFind,findNearestGyms,gymregisterfinal,findgyms,
+findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize};

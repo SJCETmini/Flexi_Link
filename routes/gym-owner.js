@@ -209,11 +209,12 @@ router.get("/",verifyLogin, function (req, res, next) {
 
 
 router.get('/apply-for-monetization',verifyLogin,(req,res)=>{
-  gymregister.detils_for_analytics(req.session.gymowner._id).then((response)=>{
+  gymregister.requirement_monitize(req.session.gymowner._id).then((response)=>{
     console.log(response)
+    res.render('gym-owner/monitize',{conditions:response})
   })
 
-  res.render('gym-owner/monitize')
+ 
 
   // monitize.apply(req.session.gymowner._id).then((response)=>{
   //   console.log(response)
