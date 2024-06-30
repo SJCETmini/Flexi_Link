@@ -878,6 +878,111 @@
 }
 
 
+/* Get Verified */
+
+.verification-section {
+  font-family: 'Poppins', sans-serif;
+  background: hsl(220, 20%, 97%);
+  color: hsl(220, 20%, 20%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 8px;
+}
+.verification-section .container {
+  background: hsl(230, 73%, 5%);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+.verification-section h1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+.verification-section .conditions {
+  display: grid;
+  gap: 1rem;
+}
+.verification-section .condition {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+.verification-section .condition:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+.verification-section .condition span:first-child {
+  font-weight: 500;
+  color: white;
+}
+.verification-section .met, .verification-section .not-met {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.verification-section .met {
+  color: hsl(160, 84%, 39%);
+}
+.verification-section .not-met {
+  color: hsl(0, 84%, 60%);
+}
+.verification-section .button {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  margin-top: 2rem;
+  background:  hsl(250, 90%, 64%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  text-transform: uppercase;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.verification-section .button:hover {
+  background: hsl(250, 90%, 60%);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+}
+.verification-section .button:disabled {
+  background: hsl(220, 10%, 60%);
+  color: hsl(220, 10%, 80%);
+  cursor: not-allowed;
+}
+@media (max-width: 480px) {
+  .verification-section .container { padding: 1.5rem; width: 95%; }
+  .verification-section h1 { font-size: 1.75rem; }
+  .verification-section .condition { padding: 0.8rem; }
+  .verification-section .condition span:first-child { font-size: 0.9rem; }
+  .verification-section .met, .verification-section .not-met { font-size: 1.1rem; }
+  .verification-section .button { padding: 0.8rem; font-size: 0.9rem; }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .verification-section .container { padding: 1.75rem; max-width: 450px; }
+  .verification-section h1 { font-size: 1.9rem; }
+}
+
+
+
+
+
 @media (max-width: 400px) {
   #brand-text {
     font-size: 1rem;

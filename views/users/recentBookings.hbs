@@ -4,8 +4,6 @@
             <div class="order">
                 <div class="head">
                     <h3>Recent Bookings</h3>
-                    <i class='bx bx-search'></i>
-                    <i class='bx bx-filter'></i>
                 </div>
                 <table>
                     <thead>
@@ -13,6 +11,7 @@
                             <th>Fitness Center</th>
                             <th>Date</th>
                             <th>Status</th>
+                            <th>Review</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,7 +27,7 @@
                             <td><a href="/users/my_ticket/?id={{this._id}}&ticketGenerated=true" class="btn btn-success">View Ticket</a></td>
                             {{else}}
                             
-                            <td><button class="btn btn-danger disabled">Expired</button></td>
+                            <td><button class="btn btn-danger disabled mb-1">Expired</button></td>
 
                             {{/if}}
 

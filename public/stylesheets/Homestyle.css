@@ -216,7 +216,7 @@
   }
   
   .primary-header {
-    padding-top: var(--size-700);
+    padding-top: var(--size-600);
   }
   
   .nav-wrapper {
@@ -442,37 +442,58 @@
   }
   
   /* Pricing  */
-  .plan-item{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    padding: 50px;
-    border-radius: var(--size-700);
+  .pricing {
+    background-color: var(--clr-neutral-100);
+}
 
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
-    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
-    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
-    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
-    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-  }
-  
-  /* Pricing  */
-  .plan-item{
+.plans {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.plan-item {
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     height: 100%;
-    padding: 50px;
-    border-radius: var(--size-700);
-    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
-    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
-    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
-    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
-    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-  }
+    padding: 3rem 2rem;
+    border-radius: 1rem;
+    background-color: var(--clr-neutral-200);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.plan-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.plan-icon {
+    font-size: 3rem;
+    color: var(--clr-accent-400);
+    margin-bottom: 1.5rem;
+}
+
+.pricing-type {
+    color: var(--clr-primary-400);
+    margin-bottom: 1rem;
+}
+
+.plan-item p {
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .plans {
+        flex-direction: column;
+    }
+    .plan-item p{
+      padding: 15px 15px;
+    }
+
+}
   /* 
   .pricing-type{
     margin-bottom: 1vh;
