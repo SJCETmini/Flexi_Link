@@ -367,6 +367,19 @@ tr:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+#promotions input[type="file"] {
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    padding: 5px 0.19rem;
+    border-radius: 5px;
+  }
+  
+  #promotions input[type="file"]::-webkit-file-upload-button {
+    font-weight: 500;
+    border-radius: 5px;
+    border: 1px solid;
+  }
+
 /* Additional Styles */
 .text-success {
     color: green;
@@ -401,3 +414,25 @@ tr:hover {
         padding: 4px;
     }
   }
+
+
+
+
+
+
+  .scrollable-cell {
+    max-width: 100px;
+    overflow: hidden;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.scrollable-cell:hover {
+    /* white-space: normal; */
+    overflow: auto;
+}
+
+
+.dummy td{
+    padding: 25px;
+}

@@ -344,9 +344,22 @@ function requirement_monitize(id){
 
 
 
+async function findGymsByName(gymName) {
+  try {
+    const gymDetails = await Gym.find({ name: gymName })
+      .populate('owner', 'email username verified')
+      .exec();
+    return gymDetails;
+  } catch (error) {
+    console.error("Error finding gyms by name:", error);
+    throw error;
+  }
+}
+
+
 
 
 module.exports = { calculatedailyfee,
 gymregisterstep1,gymregisterstep2,gymregisterstep3,chk,
 getdetailsofownersgym,ownerFind,findNearestGyms,gymregisterfinal,findgyms,
-findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize};
+findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize,findGymsByName};

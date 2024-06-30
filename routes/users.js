@@ -402,5 +402,20 @@ router.post("/member/stripe-checkout", async (req, res) => {
 
 
 
+router.get('/search-gyms', async (req, res) => {
+  const gymName = req.query.gymName;
+  if (!gymName) {
+    return res.redirect('/users'); // Redirect if no gym name provided
+  }
+
+  try {
+    const gyms = await gymhelpers.findGymsByName(gymName);
+    console.log("Gyms:",gyms)
+    res.render('./users/gym-list', { user: true, layout: 'userLayout', gyms });
+  } catch (error) {
+    res.status(500).send("Error occurred while searching for gyms.");
+  }
+});
+
 
 module.exports = router;
