@@ -426,7 +426,10 @@ router.post("/member/stripe-checkout", async (req, res) => {
   }
 });
 
-
+router.get("/logout",(req,res)=>{
+  req.session.destroy()
+  res.redirect("/")
+})
 
 
 router.get('/search-gyms', async (req, res) => {
