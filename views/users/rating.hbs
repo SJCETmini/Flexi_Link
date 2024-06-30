@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+
+    <link rel="stylesheet" href="/stylesheets/r.css">
+
+    <script src="/javascript/j.js" defer></script>
+  
+    <title>Frontend Mentor | Interactive Rating Component</title>
+    <style>
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            font-family: 'Overpass', sans-serif;
+        }
+        .card {
+            text-align: center;
+        }
+        .survey-el, .thank-you-el {
+            display: none;
+        }
+        .survey-el.active, .thank-you-el.active {
+            display: block;
+        }
+        .icon img {
+            width: 50px;
+        }
+        h2 {
+            margin: 20px 0;
+        }
+        p {
+            margin: 20px 0;
+            color: #666;
+        }
+        .num-btns {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .num-btns button {
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .num-btns button:hover, .num-btns button.selected {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+        .submit-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <form id="rating-form" action="/users/review" method="post">
+                <div id="survey-el" class="survey-el active">
+                    <div class="icon">
+                        <img src="/images/icon-star.svg" alt="Star icon.">
+                    </div>
+                    <h2>How did we do?</h2>
+                    <p>Please let us know how we did with your support request. All feedback is appreciated to help us improve our offering!</p>
+                    <div class="num-btns">
+                        <button type="button" data-num-btn>1</button>
+                        <button type="button" data-num-btn>2</button>
+                        <button type="button" data-num-btn>3</button>
+                        <button type="button" data-num-btn>4</button>
+                        <button type="button" data-num-btn>5</button>
+                    </div>
+                    <textarea name="review" placeholder="Write your review here..."></textarea>
+                    <input type="hidden" name="rating" id="rating-input">
+                    <button type="submit" class="submit-btn">SUBMIT</button>
+                </div>
+
+                <div id="thank-you-el" class="thank-you-el">
+                    <img src="/images/illustration-thank-you.svg" alt="Receipt icon.">
+                    <span class="selected">You selected <span id="selected-num-el">4</span> out of 5</span>
+                    <h2>Thank you!</h2>
+                    <p>We appreciate you taking the time to give a rating. If you ever need more support, don't hesitate to get in touch!</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const numBtns = document.querySelectorAll("[data-num-btn]");
+            const ratingInput = document.getElementById("rating-input");
+            const selectedNumEl = document.getElementById("selected-num-el");
+            const surveyEl = document.getElementById("survey-el");
+            const thankYouEl = document.getElementById("thank-you-el");
+
+            numBtns.forEach(btn => {
+                btn.addEventListener("click", function() {
+                    numBtns.forEach(b => b.classList.remove("selected"));
+                    btn.classList.add("selected");
+                    ratingInput.value = btn.textContent;
+                });
+            });
+
+            document.getElementById("rating-form").addEventListener("submit", function(event) {
+                event.preventDefault();
+                if (ratingInput.value) {
+                    selectedNumEl.textContent = ratingInput.value;
+                    surveyEl.classList.remove("active");
+                    thankYouEl.classList.add("active");
+
+                    // Submit the form data using fetch
+                    fetch(this.action, {
+                        method: this.method,
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            rating: ratingInput.value,
+                            review: this.review.value
+                        })
+                    }).then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    }).then(data => {
+                        console.log('Success:', data);
+                    }).catch((error) => {
+                        console.error('Error:', error);
+                    });
+                } else {
+                    alert("Please select a rating before submitting.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

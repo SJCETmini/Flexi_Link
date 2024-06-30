@@ -17,6 +17,7 @@ const TicketSchema = new Schema({
             return now;
         }
     },
+    review: { type: Boolean, default: false },
     ticketid: { type: String, default: generateTicketID( Math.floor(Math.random() * (4 - 9 + 1)) + 9) },
     price:Number
 });
@@ -318,6 +319,19 @@ function findcureentmonthtic(gym){
     })
   }
 
+  function updateticket(ticketId){
+    return new Promise(async(resolve,reject)=>{
+        console.log('id',ticketId)
+        console.log(ticketId.length)
+        const ticketupdated = await ticket.findOneAndUpdate(
+            { _id: ticketId },
+            { $set: { review: true } },
+            { new: true }
+        );
+        console.log('hola',ticketupdated)
+        resolve(ticketupdated)
+    })
+  }
 
 module.exports={
     getTicketCountForUser,
@@ -330,5 +344,6 @@ module.exports={
     verifyTicket,
     findcureentmonthtic,
     calculateincomefromtic,
-    calculate_revenue_for_all_gym
+    calculate_revenue_for_all_gym,
+    updateticket
 }

@@ -11,6 +11,7 @@ const membershipgenerator=require('../helpers/membership/membership');
 require('dotenv').config();
 const moment = require('moment');
 const chat=require('../helpers/ai/chatbot')
+const review=require('../helpers/review/review')
 
 
 let stripeGateway = stripe(process.env.stripe_api)
@@ -176,13 +177,39 @@ router.get('/', function(req, res, next) {
 
 router.get('/recent', function(req, res, next) {
   //console.log(req.session.user._id)
+
   ticketgenerator.findAllwithid(req.session.user._id).then((response)=>{
    // =ticketgenerator.formatDateTime(new Date(response.issueddate))
+   console.log(response)
+   
   console.log(response.formattedisdate)
     res.render('./users/recentBookings', {user:true, name:req.session.user.name, layout: 'userLayout',response});
   })
   //console.log("hi")
 });
+
+router.get("/review",(req,res)=>{
+  console.log(req.query.gymid)
+  req.session.reviewgymid=req.query.gymid
+  req.session.reviewuserid=req.query.userid
+  console.log('gym',req.session.reviewgymid)
+  console.log('user',req.session.reviewuserid)
+  console.log('hey hello',req.query.id)
+  ticketgenerator.updateticket(req.query.id).then((response)=>{
+    console.log(response)
+  })
+
+  res.render('./users/rating')
+})
+
+router.post("/review",(req,res)=>{
+  console.log(req.body)
+  review.generateriview(req.session.reviewgymid,req.session.reviewuserid,req.body.rating,req.body.review).then((response)=>{
+    console.log(response)
+  })
+  
+
+})
 
 router.get('/membership-card', function(req, res, next) { 
   

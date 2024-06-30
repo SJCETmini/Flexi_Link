@@ -31,6 +31,13 @@
                             <td><button class="btn btn-danger disabled">Expired</button></td>
 
                             {{/if}}
+
+                            <td>
+                                {{#if this.review}}
+                                <button class="btn btn-secondary disabled">Reviewed</button>
+                                {{else}}
+<a href="/users/review/?gymid={{this.gymid}}&userid={{this.userid}}&id={{this._id}}" class="btn btn-warning">Write Review</a>                                {{/if}}
+                            </td>
                         </tr>
                         
                         

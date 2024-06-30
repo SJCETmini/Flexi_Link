@@ -346,10 +346,16 @@ function requirement_monitize(id){
 
 async function findGymsByName(gymName) {
   try {
-    const gymDetails = await Gym.find({ name: gymName })
+    const gyms = await Gym.find({ name: gymName })
       .populate('owner', 'email username verified')
+      .lean()
       .exec();
-    return gymDetails;
+      gyms.forEach(gym => {
+        gym.images.forEach(image => {
+          image.data = image.data.toString('base64');
+        });
+      });
+    return gyms;
   } catch (error) {
     console.error("Error finding gyms by name:", error);
     throw error;
