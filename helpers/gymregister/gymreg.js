@@ -362,10 +362,58 @@ async function findGymsByName(gymName) {
   }
 }
 
+function addreview(gymId, newReview){
+  return new Promise(async(resolve,reject)=>{
+    const gym = await Gym.findByIdAndUpdate(
+            gymId,
+            { 
+              $push: { reviews: newReview }
+            },
+            { new: true }
+          ).exec();
+
+  resolve(gym)
+  })
+}
+
+// async function addReview(gymId, newReview) {
+//   try {
+//     const gym = await Gym.findByIdAndUpdate(
+//       gymId,
+//       { 
+//         $push: { reviews: newReview }
+//       },
+//       { new: true }
+//     ).exec();
+
+//     if (!gym) {
+//       throw new Error('Gym not found');
+//     }
+
+//     return gym;
+//   } catch (error) {
+//     console.error("Error adding review:", error);
+//     throw error;
+//   }
+// }
+
+// // Example usage
+// (async () => {
+//   const gymId = 'your_gym_id_here'; // Replace with the actual gym ID
+//   const newReview = {
+//     user: 'user_id_here', // Replace with the actual user ID
+//     rating: 5,
+//     comment: 'Excellent gym with top-notch facilities!'
+//   };
+
+//   const updatedGym = await addReview(gymId, newReview);
+//   console.log(updatedGym);
+// })();
+
 
 
 
 module.exports = { calculatedailyfee,
 gymregisterstep1,gymregisterstep2,gymregisterstep3,chk,
 getdetailsofownersgym,ownerFind,findNearestGyms,gymregisterfinal,findgyms,
-findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize,findGymsByName};
+findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize,findGymsByName,addreview};

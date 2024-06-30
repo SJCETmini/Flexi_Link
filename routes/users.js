@@ -204,8 +204,17 @@ router.get("/review",(req,res)=>{
 
 router.post("/review",(req,res)=>{
   console.log(req.body)
-  review.generateriview(req.session.reviewgymid,req.session.reviewuserid,req.body.rating,req.body.review).then((response)=>{
+  const x={
+    user:req.session.reviewuserid,
+    rating:req.body.rating,
+    Comment:req.body.review
+
+
+  }
+  gymhelpers.addreview(req.session.reviewgymid,x).then((response)=>{
+
     console.log(response)
+    
   })
   
 
