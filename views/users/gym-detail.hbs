@@ -173,7 +173,7 @@
                                 </div>
                                 <div class="gym-detail-card-body">
                                     <p>
-                                    <h2>Rs 900 / mo</h2>
+                                    <h2>Rs {{details.monthlyFee}} / mo</h2>
                                     </p>
                                     <div class="card-element-hidden-standard p-3">
                                         <ul class="gym-detail-card-element-container card-element-list m-3 text-left">
@@ -194,6 +194,50 @@
             </div>
             <label style="display: none;" for="" id="moonjan">{{longitude}}</label>
             <label style="display: none;" for="" id="moonjan2">{{lattitude}}</label>
+        </div>
+
+        <div class="review-section mt-4">
+            <div class="gym-reviews">
+                <h3 class="section-title">Reviews</h3>
+        
+                <div class="overall-rating">
+                    <div class="rating-circle">
+                        <span class="rating-number">4.7</span>
+                    </div>
+                    <div class="rating-details">
+                        <div class="star-rating" aria-label="4.7 out of 5 stars">
+                            <span class="star filled"></span>
+                            <span class="star filled"></span>
+                            <span class="star filled"></span>
+                            <span class="star filled"></span>
+                            <span class="star half-filled"></span>
+                        </div>
+                        <span class="total-reviews">Based on 128 reviews</span>
+                    </div>
+                </div>
+        
+                <div class="review-list">
+                    <div class="review-item">
+                        <div class="reviewer-info">
+                            <div class="reviewer-initial">J</div>
+                            <div class="reviewer-details">
+                                <span class="reviewer-name">John D.</span>
+                                <span class="review-date">2 days ago</span>
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            <div class="star-rating" aria-label="5 out of 5 stars">
+                                <span class="star filled"></span>
+                                <span class="star filled"></span>
+                                <span class="star filled"></span>
+                                <span class="star filled"></span>
+                                <span class="star filled"></span>
+                            </div>
+                            <p class="review-text">Great equipment and friendly staff! The classes are challenging and fun.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 

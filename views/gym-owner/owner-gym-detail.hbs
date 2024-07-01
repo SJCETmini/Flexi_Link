@@ -296,6 +296,9 @@
                             <div>Issue Date</div>
                         </div>
 
+                        {{#unless tickets.length}}
+                        <div class="text-center p-2" style="width: 100%;">No tickets</div>
+                        {{else}}
                         {{#each tickets}}
                         <div class="row py-2 border-bottom">
                             <div>{{this.ticketid}}</div>
@@ -303,6 +306,8 @@
                             <div>{{this.formattedisdate}}</div>
                         </div>
                         {{/each}}
+                        {{/unless}}
+
 
                     </div>
 
@@ -314,6 +319,9 @@
                             <div>Valid Date</div>
                         </div>
 
+                        {{#unless membership.length}}
+                        <div class="text-center p-2" style="width: 100%;">No registered users</div>
+                        {{else}}
                         {{#each membership}}
                             <div class="row py-2 border-bottom">
                                 <div>{{this.membershipid}}</div>
@@ -321,17 +329,8 @@
                                 <div>{{formattedisdate}} - {{formattedexdate}}</div>
                             </div>
                         {{/each}}
+                        {{/unless}}
 
-                        {{!-- <div class="row py-2 border-bottom">
-                            <div>2</div>
-                            <div>User 2</div>
-                            <div>04/24/2024</div>
-                        </div>
-                        <div class="row py-2 rounded-bottom">
-                            <div>3</div>
-                            <div>User 3</div>
-                            <div>04/23/2024</div>
-                        </div> --}}
                     </div>
 
                     <!-- Recent Payments Tab Content -->

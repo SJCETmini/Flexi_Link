@@ -3,6 +3,11 @@
         <div class="table-data" style="margin-top: 0px;">
             <div class="order">
                 <div class="table">
+                    {{#unless gyms.length}}
+                    <h5 class="text-center p-3">
+                        Not Found
+                    </h5>
+                    {{else}}
                     {{#each gyms}}
                     <div class="card">
                         <div class="row no-gutters m-1">
@@ -30,6 +35,7 @@
                         </div>
                     </div>
                     {{/each}}
+                    {{/unless}}
                 </div>
             </div>
         </div>
