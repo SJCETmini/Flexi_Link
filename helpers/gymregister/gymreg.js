@@ -326,21 +326,55 @@ function detils_for_analytics(id){
   })
 
 }
+async function calculateAverageRating(ownerId) {
+  try {
+    const result = await Gym.aggregate([
+      // Match gyms owned by the specified owner
+      { $match: { owner: new mongoose.Types.ObjectId(ownerId) } },
+      // Unwind the reviews array to de-normalize the data
+      { $unwind: '$reviews' },
+      // Group by owner and calculate the average rating
+      {
+        $group: {
+          _id: '$owner',
+          averageRating: { $avg: '$reviews.rating' }
+        }
+      }
+    ]);
+
+    if (result.length > 0) {
+      return result[0].averageRating;
+    } else {
+      return 0; // If no reviews found, return 0
+    }
+  } catch (error) {
+    console.error('Error calculating average rating:', error);
+    throw error;
+  }
+}
 
 function requirement_monitize(id){
   return new Promise(async(resolve,reject)=>{
     const gyms = await Gym.find({ owner: id }).select('_id');
-    revenue.calculate_revenue_for_all_gym(gyms).then((response)=>{
+    const response = await revenue.calculate_revenue_for_all_gym(gyms);
+    
+    let averagerating = false;
+    const averageRatingValue = await calculateAverageRating(id);
+    console.log('ghh', averageRatingValue);
+    if (averageRatingValue > 3.5) {
+      averagerating = true;
+    }
       const data_for_purpose={
         monthlyRevenue:response.actualrevenue,
         membersEnrolled:response.membercondition,
-        averageRating:response.rating
+        averagerating,
+        allmet:response.actualrevenue&&response.membercondition&&averagerating
       }
 
       resolve(data_for_purpose)
     })
-  })
-}
+  }
+
 
 
 
@@ -413,7 +447,9 @@ function addreview(gymId, newReview){
 
 
 
+
+
 module.exports = { calculatedailyfee,
 gymregisterstep1,gymregisterstep2,gymregisterstep3,chk,
 getdetailsofownersgym,ownerFind,findNearestGyms,gymregisterfinal,findgyms,
-findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize,findGymsByName,addreview};
+findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize,findGymsByName,addreview,calculateAverageRating};

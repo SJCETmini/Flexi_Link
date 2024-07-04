@@ -298,6 +298,7 @@ function findcureentmonthtic(gym){
     var membercondition=false
     var actualrevenue=false
     var rating=false
+    
     if (totalMemberships>1) {
         membercondition=true
     }

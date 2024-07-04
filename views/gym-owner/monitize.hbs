@@ -69,16 +69,18 @@
             </div>
             <div class="condition">
                 <span>Average Rating</span>
-                {{#if conditions.averageRating}}
+                {{#if conditions.averagerating}}
                     <span class="met">&#10004;</span>
                 {{else}}
                     <span class="not-met">&#10008;</span>
                 {{/if}}
             </div>
         </div>
-        <button class="button" {{#unless conditions.allMet}}disabled{{/unless}}>
-            Complete Verification
-        </button>
+      <a href="/gymowner/proceed-application" class="button {{#unless conditions.allmet}}disabled-link{{/unless}}" 
+   {{#unless conditions.allmet}}onclick="return false;"{{/unless}}>
+  Request Verification
+</a>
+
     </div>
     </section>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"

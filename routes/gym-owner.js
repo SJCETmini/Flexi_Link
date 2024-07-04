@@ -198,6 +198,13 @@ router.post("/registergym", verifyLogin,function (req, res, next) {
   }) 
 });
 
+router.get('/proceed-application',(req,res)=>{
+  monitize.apply(req.session.gymowner._id).then((response)=>{
+    console.log(response)
+    res.redirect('/gymowner')
+  })
+})
+
 router.get("/",verifyLogin, function (req, res, next) {
   gymregister.getdetailsofownersgym(req.session.gymowner._id).then((response)=>{
     console.log(response)
@@ -210,6 +217,7 @@ router.get("/",verifyLogin, function (req, res, next) {
 
 router.get('/apply-for-monetization',verifyLogin,(req,res)=>{
   gymregister.requirement_monitize(req.session.gymowner._id).then((response)=>{
+    
     console.log(response)
     res.render('gym-owner/monitize',{conditions:response})
   })
