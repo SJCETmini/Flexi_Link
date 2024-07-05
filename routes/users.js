@@ -379,7 +379,7 @@ router.get('/auth/google/callback',
                         
 
                     },
-                    unit_amount: booking.dailyFee
+                    unit_amount: booking.dailyFee*100
                 },
                 quantity: 1
             }],
@@ -418,7 +418,7 @@ router.post("/member/stripe-checkout", async (req, res) => {
                       
 
                   },
-                  unit_amount: booking.Fee
+                  unit_amount: booking.Fee*100
               },
               quantity: 1
           }],

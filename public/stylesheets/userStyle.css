@@ -1162,3 +1162,32 @@ body {
 	transform: translateY(0px);
 	transition-duration: 0.3s;
 }
+
+
+/* BADGE */
+.verified-badge {
+	background-color: hsl(230 73% 5%);
+	color: white;
+	padding: 5px 10px;
+	border-radius: 20px;
+	font-weight: bold;
+	display: inline-flex;
+	align-items: center;
+	font-size: 0.8rem;
+}
+.verified-badge i {
+	margin-right: 5px;
+	font-size: 1rem;
+}
+
+.verified-badge {
+	margin-left: 0px;
+	margin-top: 10px;
+}
+  
+  @media (min-width: 401px) {
+	.verified-badge {
+	  margin-left: 10px !important;
+	}
+  }
+  

@@ -205,13 +205,7 @@
                         <span class="rating-number">4.7</span>
                     </div>
                     <div class="rating-details">
-                        <div class="star-rating" aria-label="4.7 out of 5 stars">
-                            <span class="star filled"></span>
-                            <span class="star filled"></span>
-                            <span class="star filled"></span>
-                            <span class="star filled"></span>
-                            <span class="star half-filled"></span>
-                        </div>
+                         <div class="star-rating" id="overallStarRating"></div>
                         <span class="total-reviews">Based on 128 reviews</span>
                     </div>
                 </div>
@@ -226,13 +220,7 @@
                             </div>
                         </div>
                         <div class="review-content">
-                            <div class="star-rating" aria-label="5 out of 5 stars">
-                                <span class="star filled"></span>
-                                <span class="star filled"></span>
-                                <span class="star filled"></span>
-                                <span class="star filled"></span>
-                                <span class="star filled"></span>
-                            </div>
+                            <div class="star-rating" id="reviewStarRating"></div>
                             <p class="review-text">Great equipment and friendly staff! The classes are challenging and fun.</p>
                         </div>
                     </div>
@@ -294,6 +282,26 @@
         });
     });
 
+
+
+    function createStarRating(elementId, rating) {
+            const starRatingElement = document.getElementById(elementId);
+            starRatingElement.innerHTML = '';  
+
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('span');
+                star.classList.add('star');
+                if (rating >= i) {
+                    star.classList.add('filled');
+                } else if (rating >= i - 0.5) {
+                    star.classList.add('half-filled');
+                }
+                starRatingElement.appendChild(star);
+            }
+    }
+
+    createStarRating('overallStarRating', 4.7);
+    createStarRating('reviewStarRating', 4.5);
 
 </script>
 
