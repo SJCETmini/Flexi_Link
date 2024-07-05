@@ -809,3 +809,11 @@
         transform: scale(1);
     }
 }
+
+.hero-section, .introduction, .WhyUs, .products, .pricing, .primary-footer{
+  padding-top: 120px !important;
+}
+
+.navbar-hidden{
+  display: none;
+}

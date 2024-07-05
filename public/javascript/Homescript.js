@@ -18,7 +18,10 @@ navToggle.addEventListener("click", () => {
 
 window.addEventListener('load', function () {
   const loader = document.getElementsByClassName('loader')[0];
+  const header = document.getElementById('header');
+
   setTimeout(function () {
       loader.style.display = 'none';
+      header.classList.remove('navbar-hidden');
   }, 3000); 
 });
