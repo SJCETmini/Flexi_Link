@@ -106,7 +106,7 @@ router.post("/gyms", (req, res) => {
 // });
 
 router.get('/login',(req,res)=>{
-  res.render('admin/adminlogin')
+  res.render('adminDash/adminlogin')
 })
 
 
@@ -122,16 +122,16 @@ router.post('/login',(req,res)=>{
 })
 
 
-// router.get('/review-application',verifyLogin,(req,res)=>{
-//   console.log(req.query.id)
-//   console.log(req.query.username)
-//   gymdetails.ownerFind(req.query.id).then((response)=>{
-//     console.log(response)
-//   })
+router.get('/review-application',verifyLogin,(req,res)=>{
+  console.log(req.query.id)
+  console.log(req.query.username)
+  gymdetails.ownerFind(req.query.id).then((response)=>{
+    console.log(response)
+  })
 
+  res.render('adminDash/verification-page')
 
-
-// })
+})
 
 
 

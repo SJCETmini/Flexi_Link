@@ -436,3 +436,8 @@ tr:hover {
 .dummy td{
     padding: 25px;
 }
+
+.verification a{
+    color: inherit;
+    text-decoration: none;
+}
