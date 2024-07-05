@@ -12,6 +12,7 @@ require('dotenv').config();
 const moment = require('moment');
 const chat=require('../helpers/ai/chatbot')
 const review=require('../helpers/review/review')
+const ower=require('../helpers/registerandlogin/userlogin')
 
 
 let stripeGateway = stripe(process.env.stripe_api)
@@ -278,7 +279,11 @@ router.get('/gym-detail', function(req, res, next) {
 
 
   gymhelpers.findgyms(req.query.id).then((response) => {
+
+    
     console.log(response.name)
+
+    console.log("verified.....",response.verified)
     const morningStartTime = response.workingHours.morningStartTime + ' AM';
     const morningEndTime = response.workingHours.morningEndTime + ' PM';
     // Convert the start and end times to 24-hour format for easier comparison

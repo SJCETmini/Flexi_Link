@@ -64,6 +64,28 @@ function fetch_details_applied(){
     })
 }
 
+function update_reviewarray(ownerId){
+    return new Promise(async(resolve,reject)=>{
+
+        const document = await Monitize.findOne({ 'applied.owner': ownerId });
+    
+        if (!document) {
+          console.log('Owner not found in applied array');
+        }
+    
+        // Remove the owner from the applied array
+        document.applied = document.applied.filter(appliedEntry => !appliedEntry.owner.equals(ownerId));
+    
+        // Add the owner to the verified array
+        document.verified.push(ownerId);
+    
+        // Save the updated document
+        await document.save();
+
+        resolve(document)
+
+    })
+}
 
 function fetch_details(){
     return new Promise(async(resolve,reject)=>{
@@ -77,7 +99,8 @@ function fetch_details(){
 module.exports = {
     apply,
     fetch_details,
-    fetch_details_applied
+    fetch_details_applied,
+    update_reviewarray
 }
 
 

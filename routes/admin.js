@@ -126,6 +126,7 @@ router.post('/login',(req,res)=>{
 })
 
 
+
 router.get('/review-application',verifyLogin,(req,res)=>{
   console.log(req.query.id)
   const uname=req.query.uname;
@@ -136,7 +137,7 @@ router.get('/review-application',verifyLogin,(req,res)=>{
     const rating=await gymdetails.calculateAverageRating(req.query.id)
     gymdetails.fetch_reviews(req.query.id).then((responsereview)=>{
       console.log(responsereview)
-      res.render('adminDash/verification-page',{uname,email1,wholerevenue:response.wholeRevenue,totalgym:response.totalgym,rating,totalMemberships:response.totalMemberships})
+      res.render('adminDash/verification-page',{id:req.query.id,uname,email1,wholerevenue:response.wholeRevenue,totalgym:response.totalgym,rating,totalMemberships:response.totalMemberships,responsereview})
     })
 
    
@@ -145,7 +146,22 @@ router.get('/review-application',verifyLogin,(req,res)=>{
 })
 
 
+router.get('/approve',verifyLogin,(req,res)=>{
+  //console.log("hi")
+  monitize.update_reviewarray(req.query.id).then((response)=>{
+    console.log(response)
+    userdetails.updateowner(req.query.id).then((updated)=>{
+      console.log(updated)
+      res.redirect("/admin")
 
+    })
+
+  })
+
+
+
+
+})
 
 
 

@@ -29,6 +29,24 @@ function register(userData){
 
 }
 
+function findowner(id){
+    return new Promise(async(resolve,reject)=>{
+        const owner = await gymowner.findById(id);
+        resolve(owner)
+    })
+}
+
+function updateowner(ownerId){
+    return new Promise(async(resolve,reject)=>{
+        const updatedOwner = await gymowner.findByIdAndUpdate(
+            ownerId,
+            { verified: true },
+            { new: true }
+          );
+          resolve(updatedOwner);
+    })
+}
+
 function login(userdata){
     return new Promise(async(resolve,reject)=>{
         let response={};
@@ -150,7 +168,8 @@ function getFulldetails(idsArray){
 module.exports = {
     register,
     login,
-    fd,fds1,getFulldetails
+    fd,fds1,getFulldetails,
+    updateowner,gymowner,findowner
     
 }
   

@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const revenue = require('../Ticket/ticket');
 const { response } = require('express');
 const user=require('../users/auth')
+const owners=require('../registerandlogin/userlogin')
 // Define schema for gym
 const gymSchema = new Schema({
   name: String,
@@ -258,7 +259,20 @@ function findgyms(id){
       image.data = image.data.toString('base64');
     });
   gym.dailyFee=Math.round(gym.dailyFee)
+  //const owner = await owners.gymowner.findById(gym.owner).lean();
+ // gym.verified = owner.verified;
+
+  console.log("verified......")
+  console.log(gym.owner)
+  owners.findowner(gym.owner).then((response)=>{
+    console.log(response)
+    gym.verified=response.verified
+    
     resolve(gym)
+  })
+
+ 
+    
   })
 }
 
@@ -432,7 +446,7 @@ function count(){
 
 function fetch_reviews(ownerId){
   return new Promise(async(resolve,reject)=>{
-    const gyms = await Gym.find({ owner: ownerId }).select('reviews').exec();
+    const gyms = await Gym.find({ owner: ownerId }).select('reviews').lean().exec();
     
     // Combine all reviews from the gyms
     let combinedReviews = [];

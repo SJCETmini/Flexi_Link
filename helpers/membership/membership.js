@@ -191,6 +191,8 @@ function findAllwithGym(gymId) {
     });
 }
 
+
+
 function findRevenue(id){
     return new Promise(async(resolve,reject)=>{
         const now = new Date();
