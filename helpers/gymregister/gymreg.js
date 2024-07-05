@@ -43,7 +43,8 @@ const gymSchema = new Schema({
   reviews: [{ 
     user: { type: Schema.Types.ObjectId, ref: 'User' }, // Reference to the user who left the review
     rating: Number,
-    comment: String
+    comment: String,
+    reviewDate: Date
   }],
   aminities:[String],
   specialities:[String]
@@ -443,6 +444,7 @@ function count(){
 
 
 }
+
 
 function fetch_reviews(ownerId){
   return new Promise(async(resolve,reject)=>{

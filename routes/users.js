@@ -205,10 +205,12 @@ router.get("/review",(req,res)=>{
 
 router.post("/review",(req,res)=>{
   console.log(req.body)
+  const currentDate = new Date()
   const x={
     user:req.session.reviewuserid,
     rating:req.body.rating,
-    comment:req.body.review
+    comment:req.body.review,
+    reviewDate:currentDate
   }
   console.log("x",x)
   gymhelpers.addreview(req.session.reviewgymid,x).then((response)=>{

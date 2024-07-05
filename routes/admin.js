@@ -137,7 +137,9 @@ router.get('/review-application',verifyLogin,(req,res)=>{
     const rating=await gymdetails.calculateAverageRating(req.query.id)
     gymdetails.fetch_reviews(req.query.id).then((responsereview)=>{
       console.log(responsereview)
-      res.render('adminDash/verification-page',{id:req.query.id,uname,email1,wholerevenue:response.wholeRevenue,totalgym:response.totalgym,rating,totalMemberships:response.totalMemberships,responsereview})
+      len = responsereview.length
+      console.log(len)
+      res.render('adminDash/verification-page',{uname,email1,wholerevenue:response.wholeRevenue,totalgym:response.totalgym,rating,totalMemberships:response.totalMemberships, reviews:responsereview, len})
     })
 
    

@@ -105,48 +105,63 @@
         </div>
       </div>
 
-      <div class="review-section card">
-        <h3>Reviews</h3>
-        <div class="overall-rating">
-          <div class="rating-circle">
-            <span class="rating-number">4.7</span>
-          </div>
-          <div>
-            <div class="star-rating" id="overallStarRating"></div>
-            <div>Based on 128 reviews</div>
-          </div>
-        </div>
-
-        <div class="review-list">
-          <div class="review-item">
-            <div class="reviewer-info">
-              <div class="reviewer-initial">J</div>
-              <div>
-                <div>John D.</div>
-                <div>2 days ago</div>
-              </div>
+        <div class="review-section card">
+            <h3>Reviews</h3>
+            <div class="overall-rating">
+                <div class="rating-circle">
+                    <span class="rating-number">{{rating}}</span>
+                </div>
+                <div>
+                    <div class="star-rating" id="overallStarRating"></div>
+                    <div>Based on {{len}} ratings</div>
+                </div>
             </div>
-            <div class="star-rating" id="reviewStarRating"></div>
-            <p>Great equipment and friendly staff! The classes are challenging
-              and fun.</p>
-          </div>
+            {{!-- <h1>{{responsereview}}</h1> --}}
+            {{#each reviews}}
+            <div class="review-list">
+                <div class="review-item">
+                    <div class="reviewer-info">
+                        <div class="reviewer-initial">J</div>
+                        <div>
+                            <div>{{this.user}}</div>
+                            <div>{{this.reviewDate}}</div>
+                        </div>
+                    </div>
+                    <div class="star-rating" id="reviewStarRating">{{this.rating}}</div>
+                    <p>{{this.comment}}</p>
+                </div>
+            </div>
+            {{/each}}
         </div>
-      </div>
     </div>
 
     <script>
-      function updateStatus(newStatus) {
-      document.querySelector('.status').textContent = `Verification Status:
-      ${newStatus.charAt(0).toUpperCase() + newStatus.slice(1)}`; } function
-      createStarRating(containerId, rating) { const container =
-      document.getElementById(containerId); container.innerHTML = ''; for (let i
-      = 1; i <= 5; i++) { const star = document.createElement('span');
-      star.className = 'star'; if (i <= rating) {
-      star.classList.add('star-full'); } else if (i - 0.5 <= rating) {
-      star.classList.add('star-half'); } else {
-      star.classList.add('star-empty'); } container.appendChild(star); } } //
-      Initialize star ratings createStarRating('overallStarRating', 4.7);
-      createStarRating('reviewStarRating', 5);
+        function updateStatus(newStatus) {
+            document.querySelector('.status').textContent = `Verification Status: ${newStatus.charAt(0).toUpperCase() + newStatus.slice(1)}`;
+        }
+
+        function createStarRating(containerId, rating) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('span');
+                star.className = 'star';
+                if (i <= rating) {
+                    star.classList.add('star-full');
+                } else if (i - 0.5 <= rating) {
+                    star.classList.add('star-half');
+                } else {
+                    star.classList.add('star-empty');
+                }
+                container.appendChild(star);
+            }
+        }
+
+        
+        console.log({{rating}})
+        createStarRating('overallStarRating', {{rating}});
+
+        //createStarRating('reviewStarRating', 1);
     </script>
   </body>
 </html>
