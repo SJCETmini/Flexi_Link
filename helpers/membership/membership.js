@@ -87,7 +87,22 @@ function formatDateTime(date) {
     return returndate
   }
 
+function revenuefrommembership(){
+    return new Promise(async(resolve,reject)=>{
+        const result = await membership.aggregate([
+            {
+              $group: {
+                _id: null,
+                totalPrice: { $sum: '$price' }
+              }
+            }
+          ]);
 
+          resolve(result);
+
+    })
+    
+}
 
 function findAllwithid(id){
     return new Promise(async(resolve,reject)=>{
@@ -206,5 +221,6 @@ module.exports={
     findAllwithGym,
     findthenumberofmembers,
     findRevenue,
-    membership
+    membership,
+    revenuefrommembership
 }

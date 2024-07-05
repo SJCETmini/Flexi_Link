@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const revenue = require('../Ticket/ticket');
 const { response } = require('express');
+const user=require('../users/auth')
 // Define schema for gym
 const gymSchema = new Schema({
   name: String,
@@ -410,6 +411,24 @@ function addreview(gymId, newReview){
   })
 }
 
+function count(){
+  return new Promise(async(resolve,reject)=>{
+    const count = await Gym.countDocuments().exec();
+    const usercount=await user.user.countDocuments().exec();
+    console.log('gym count',count)
+    console.log('user count',usercount)
+
+    const x={
+      gymcount:count,
+      usercount:usercount
+    }
+    resolve(x)
+
+  })
+
+
+}
+
 // async function addReview(gymId, newReview) {
 //   try {
 //     const gym = await Gym.findByIdAndUpdate(
@@ -452,4 +471,4 @@ function addreview(gymId, newReview){
 module.exports = { calculatedailyfee,
 gymregisterstep1,gymregisterstep2,gymregisterstep3,chk,
 getdetailsofownersgym,ownerFind,findNearestGyms,gymregisterfinal,findgyms,
-findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize,findGymsByName,addreview,calculateAverageRating};
+findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize,findGymsByName,addreview,calculateAverageRating,count};

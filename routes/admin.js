@@ -7,7 +7,8 @@ var userdetails = require('../helpers/registerandlogin/userlogin')
 var gymdetails = require('../helpers/gymregister/gymreg')
 const membershipdetails=require('../helpers/membership/membership');
 var customer  = require("../helpers/users/auth");
-
+const ticketdetails=require('../helpers/Ticket/ticket');
+const membersdetails=require('../helpers/membership/membership')
 
 const verifyLogin=(req,res,next)=>{
   if(req.session.adminloggedIn){
@@ -18,7 +19,18 @@ const verifyLogin=(req,res,next)=>{
 }
 
 router.get("/", verifyLogin,(req, res) => {
-    res.render('adminDash/admindashboard');
+  gymdetails.count().then((countofgym)=>{
+    ticketdetails.revenuefromticket().then((ticketvalue)=>{
+      membersdetails.revenuefrommembership().then((membershiprevenue)=>{
+        console.log('countofgym',countofgym,'ticketvalue',ticketvalue,'membershiprevenue',membershiprevenue)
+        var totalvalue=ticketvalue[0].totalPrice+membershiprevenue[0].totalPrice
+        console.log(totalvalue)
+
+        res.render('adminDash/admindashboard',{counts:countofgym,revenue:totalvalue});
+      })
+    })
+  })
+   
 });
 
 
