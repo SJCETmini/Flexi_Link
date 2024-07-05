@@ -207,10 +207,9 @@ router.post("/review",(req,res)=>{
   const x={
     user:req.session.reviewuserid,
     rating:req.body.rating,
-    Comment:req.body.review
-
-
+    comment:req.body.review
   }
+  console.log("x",x)
   gymhelpers.addreview(req.session.reviewgymid,x).then((response)=>{
 
     console.log(response)

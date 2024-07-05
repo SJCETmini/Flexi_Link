@@ -7,7 +7,8 @@ var userdetails = require('../helpers/registerandlogin/userlogin')
 var gymdetails = require('../helpers/gymregister/gymreg')
 const membershipdetails=require('../helpers/membership/membership');
 var customer  = require("../helpers/users/auth");
-
+const ticketdetails=require('../helpers/Ticket/ticket');
+const membersdetails=require('../helpers/membership/membership')
 
 const verifyLogin=(req,res,next)=>{
   if(req.session.adminloggedIn){
@@ -18,7 +19,22 @@ const verifyLogin=(req,res,next)=>{
 }
 
 router.get("/", verifyLogin,(req, res) => {
-    res.render('adminDash/admindashboard');
+  gymdetails.count().then((countofgym)=>{
+    ticketdetails.revenuefromticket().then((ticketvalue)=>{
+      membersdetails.revenuefrommembership().then((membershiprevenue)=>{
+        console.log('countofgym',countofgym,'ticketvalue',ticketvalue,'membershiprevenue',membershiprevenue)
+        var totalvalue=ticketvalue[0].totalPrice+membershiprevenue[0].totalPrice
+        console.log(totalvalue)
+        monitize.fetch_details_applied().then((ownersapplied)=>{
+          console.log('hey owners',ownersapplied)
+          res.render('adminDash/admindashboard',{counts:countofgym,revenue:totalvalue,ownersapplied});
+        })
+
+        
+      })
+    })
+  })
+   
 });
 
 
@@ -112,12 +128,19 @@ router.post('/login',(req,res)=>{
 
 router.get('/review-application',verifyLogin,(req,res)=>{
   console.log(req.query.id)
-  console.log(req.query.username)
-  gymdetails.ownerFind(req.query.id).then((response)=>{
+  const uname=req.query.uname;
+  console.log(uname)
+  const email1=req.query.email;
+  gymdetails.detils_for_analytics(req.query.id).then(async(response)=>{
     console.log(response)
-  })
+    const rating=await gymdetails.calculateAverageRating(req.query.id)
+    gymdetails.fetch_reviews(req.query.id).then((responsereview)=>{
+      console.log(responsereview)
+      res.render('adminDash/verification-page',{uname,email1,wholerevenue:response.wholeRevenue,totalgym:response.totalgym,rating,totalMemberships:response.totalMemberships})
+    })
 
-  res.render('adminDash/verification-page')
+   
+  })
 
 })
 

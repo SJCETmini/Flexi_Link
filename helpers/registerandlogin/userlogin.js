@@ -137,11 +137,20 @@ function login(userdata){
 
     // fnd();
 
+function getFulldetails(idsArray){
+    return new Promise(async(resolve,reject)=>{
+        const owners = await gymowner.find({ _id: { $in: idsArray } }).lean().exec();
+        console.log(owners)
+        resolve(owners)
 
+
+    })
+
+}
 module.exports = {
     register,
     login,
-    fd,fds1
+    fd,fds1,getFulldetails
     
 }
   

@@ -334,6 +334,23 @@ function findcureentmonthtic(gym){
     })
   }
 
+  function revenuefromticket(){
+    return new Promise(async(resolve,reject)=>{
+        const result = await ticket.aggregate([
+            {
+              $group: {
+                _id: null,
+                totalPrice: { $sum: '$price' }
+              }
+            }
+          ]);
+
+          resolve(result);
+
+    })
+    
+}
+
 module.exports={
     getTicketCountForUser,
     generateTicket,
@@ -346,5 +363,6 @@ module.exports={
     findcureentmonthtic,
     calculateincomefromtic,
     calculate_revenue_for_all_gym,
-    updateticket
+    updateticket,
+    revenuefromticket
 }

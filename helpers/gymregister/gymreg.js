@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const revenue = require('../Ticket/ticket');
 const { response } = require('express');
+const user=require('../users/auth')
 // Define schema for gym
 const gymSchema = new Schema({
   name: String,
@@ -398,6 +399,7 @@ async function findGymsByName(gymName) {
 
 function addreview(gymId, newReview){
   return new Promise(async(resolve,reject)=>{
+    console.log(newReview)
     const gym = await Gym.findByIdAndUpdate(
             gymId,
             { 
@@ -407,6 +409,37 @@ function addreview(gymId, newReview){
           ).exec();
 
   resolve(gym)
+  })
+}
+
+function count(){
+  return new Promise(async(resolve,reject)=>{
+    const count = await Gym.countDocuments().exec();
+    const usercount=await user.user.countDocuments().exec();
+    console.log('gym count',count)
+    console.log('user count',usercount)
+
+    const x={
+      gymcount:count,
+      usercount:usercount
+    }
+    resolve(x)
+
+  })
+
+
+}
+
+function fetch_reviews(ownerId){
+  return new Promise(async(resolve,reject)=>{
+    const gyms = await Gym.find({ owner: ownerId }).select('reviews').exec();
+    
+    // Combine all reviews from the gyms
+    let combinedReviews = [];
+    gyms.forEach(gym => {
+      combinedReviews = combinedReviews.concat(gym.reviews);
+    });
+    resolve(combinedReviews)
   })
 }
 
@@ -452,4 +485,4 @@ function addreview(gymId, newReview){
 module.exports = { calculatedailyfee,
 gymregisterstep1,gymregisterstep2,gymregisterstep3,chk,
 getdetailsofownersgym,ownerFind,findNearestGyms,gymregisterfinal,findgyms,
-findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize,findGymsByName,addreview,calculateAverageRating};
+findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize,findGymsByName,addreview,calculateAverageRating,fetch_reviews,count};

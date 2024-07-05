@@ -76,10 +76,11 @@
                 {{/if}}
             </div>
         </div>
-      <a href="/gymowner/proceed-application" class="button {{#unless conditions.allmet}}disabled-link{{/unless}}" 
-   {{#unless conditions.allmet}}onclick="return false;"{{/unless}}>
-  Request Verification
-</a>
+{{#if conditions.allmet}}
+    <a href="/gymowner/proceed-application" class="btn btn-primary">Proceed with Application</a>
+{{else}}
+    <a href="#" class="btn btn-primary disabled" aria-disabled="true">Proceed with Application</a>
+{{/if}}
 
     </div>
     </section>

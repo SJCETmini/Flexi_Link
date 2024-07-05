@@ -59,7 +59,7 @@
                             <div class="stat-icon">
                                 <i class="fas fa-dumbbell"></i>
                             </div>
-                            <div class="stat-value">254</div>
+                            <div class="stat-value">{{counts.gymcount}}</div>
                             <div class="stat-label">Total Gyms</div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                             <div class="stat-icon">
                                 <i class="fas fa-users"></i>
                             </div>
-                            <div class="stat-value">12,548</div>
+                            <div class="stat-value">{{counts.usercount}}</div>
                             <div class="stat-label">Active Users</div>
                         </div>
                     </div>
@@ -77,37 +77,31 @@
                             <div class="stat-icon">
                                 <i class="fas fa-dollar-sign"></i>
                             </div>
-                            <div class="stat-value">$84,726</div>
+                            <div class="stat-value">{{revenue}}</div>
                             <div class="stat-label">Total Revenue</div>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3 s">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="stat-value">25%</div>
-                            <div class="stat-label">Revenue Growth</div>
-                        </div>
-                    </div>
+                    
                 </div>
 
 
                 <div class="verification mt-4">
-                    <h4>Pending Gym Verifications</h4>
+                    <h4>Pending Verifications</h4>
                     <ol class="verification-list mt-3">
+                        {{#each ownersapplied}}
                         <li class="d-flex justify-content-between align-items-center">
                             <div class="gym-details">
-                                <h3>Gym Name: Fitness Xpress</h4>
-                                    <p class="gym-info"><i class="fas fa-map-marker-alt"></i> Location: New York</p>
-                                    <p class="gym-info"><i class="fas fa-user"></i> Owner: John Doe</p>
+                                <h3>Name: {{this.username}}</h4>
+                                    <p class="gym-info">ID: {{this._id}}</p>
+                                    <p class="gym-info"><i class="fas fa-user"></i> {{this.email}}</p>
                             </div>
                             <div class="action-buttons">
-                                <button class="btn btn-primary view-btn"><a href="/admin/review-application">View Application</a></button>
+                                <button class="btn btn-primary view-btn"><a href="/admin/review-application/?id={{this._id}}&uname={{this.username}}&email={{this.email}}">View Application</a></button>
                                 <button class="btn btn-success verify-btn">Verify</button>
                                 <button class="btn btn-danger reject-btn">Reject</button>
                             </div>
                         </li>
+                        {{/each}}
                     </ol>
                 </div>
             </section>
