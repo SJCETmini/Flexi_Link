@@ -175,27 +175,29 @@
             <h3>Reviews</h3>
             <div class="overall-rating">
                 <div class="rating-circle">
-                    <span class="rating-number">4.7</span>
+                    <span class="rating-number">{{rating}}</span>
                 </div>
                 <div>
                     <div class="star-rating" id="overallStarRating"></div>
-                    <div>Based on 128 reviews</div>
+                    <div>Based on {{len}} ratings</div>
                 </div>
             </div>
-    
+            {{!-- <h1>{{responsereview}}</h1> --}}
+            {{#each reviews}}
             <div class="review-list">
                 <div class="review-item">
                     <div class="reviewer-info">
                         <div class="reviewer-initial">J</div>
                         <div>
-                            <div>John D.</div>
-                            <div>2 days ago</div>
+                            <div>{{this.user}}</div>
+                            <div>{{this.reviewDate}}</div>
                         </div>
                     </div>
-                    <div class="star-rating" id="reviewStarRating"></div>
-                    <p>Great equipment and friendly staff! The classes are challenging and fun.</p>
+                    <div class="star-rating" id="reviewStarRating">{{this.rating}}</div>
+                    <p>{{this.comment}}</p>
                 </div>
             </div>
+            {{/each}}
         </div>
     </div>
 
@@ -221,9 +223,11 @@
             }
         }
 
-        // Initialize star ratings
-        createStarRating('overallStarRating', 4.7);
-        createStarRating('reviewStarRating', 5);
+        
+        console.log({{rating}})
+        createStarRating('overallStarRating', {{rating}});
+
+        //createStarRating('reviewStarRating', 1);
     </script>
 </body>
 </html>
