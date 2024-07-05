@@ -399,6 +399,7 @@ async function findGymsByName(gymName) {
 
 function addreview(gymId, newReview){
   return new Promise(async(resolve,reject)=>{
+    console.log(newReview)
     const gym = await Gym.findByIdAndUpdate(
             gymId,
             { 
@@ -427,6 +428,19 @@ function count(){
   })
 
 
+}
+
+function fetch_reviews(ownerId){
+  return new Promise(async(resolve,reject)=>{
+    const gyms = await Gym.find({ owner: ownerId }).select('reviews').exec();
+    
+    // Combine all reviews from the gyms
+    let combinedReviews = [];
+    gyms.forEach(gym => {
+      combinedReviews = combinedReviews.concat(gym.reviews);
+    });
+    resolve(combinedReviews)
+  })
 }
 
 // async function addReview(gymId, newReview) {
@@ -471,4 +485,4 @@ function count(){
 module.exports = { calculatedailyfee,
 gymregisterstep1,gymregisterstep2,gymregisterstep3,chk,
 getdetailsofownersgym,ownerFind,findNearestGyms,gymregisterfinal,findgyms,
-findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize,findGymsByName,addreview,calculateAverageRating,count};
+findgymformembership,sortGym,removeGym,detils_for_analytics,requirement_monitize,findGymsByName,addreview,calculateAverageRating,fetch_reviews,count};

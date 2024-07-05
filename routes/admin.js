@@ -25,8 +25,12 @@ router.get("/", verifyLogin,(req, res) => {
         console.log('countofgym',countofgym,'ticketvalue',ticketvalue,'membershiprevenue',membershiprevenue)
         var totalvalue=ticketvalue[0].totalPrice+membershiprevenue[0].totalPrice
         console.log(totalvalue)
+        monitize.fetch_details_applied().then((ownersapplied)=>{
+          console.log('hey owners',ownersapplied)
+          res.render('adminDash/admindashboard',{counts:countofgym,revenue:totalvalue,ownersapplied});
+        })
 
-        res.render('adminDash/admindashboard',{counts:countofgym,revenue:totalvalue});
+        
       })
     })
   })
@@ -124,12 +128,17 @@ router.post('/login',(req,res)=>{
 
 router.get('/review-application',verifyLogin,(req,res)=>{
   console.log(req.query.id)
-  console.log(req.query.username)
-  gymdetails.ownerFind(req.query.id).then((response)=>{
+  
+  gymdetails.detils_for_analytics(req.query.id).then(async(response)=>{
     console.log(response)
-  })
+    const rating=await gymdetails.calculateAverageRating(req.query.id)
+    gymdetails.fetch_reviews(req.query.id).then((responsereview)=>{
+      console.log(responsereview)
+      res.render('adminDash/verification-page',{wholerevenue:response.wholeRevenue,totalgym:response.totalgym,rating,totalMemberships:response.totalMemberships})
+    })
 
-  res.render('adminDash/verification-page')
+   
+  })
 
 })
 

@@ -1,17 +1,17 @@
 
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
-
+const owners=require("../registerandlogin/userlogin")
 
 
 const monitizeSchema = new Schema({
     // other fields in your main schema
     applied: [{
-        owner: { type: Schema.Types.ObjectId, ref: 'Owner' },
+        owner: { type: Schema.Types.ObjectId, ref: 'owner' },
         date: { type: Date }
     }],
     
-    verified: [{ type: Schema.Types.ObjectId, ref: 'Owner' }]
+    verified: [{ type: Schema.Types.ObjectId, ref: 'owner' }]
 });
 
 
@@ -50,6 +50,19 @@ function apply(ownerId) {
     });
 }
 
+function fetch_details_applied(){
+    return new Promise(async(resolve,reject)=>{
+        const ownersverification= await Monitize.findOne({})
+        .select('applied')
+        const applied_array=ownersverification.applied;
+        const ownersArray = applied_array.map(item => item.owner);
+        owners.getFulldetails(ownersArray).then((response)=>{
+            resolve(response)
+        })
+      
+
+    })
+}
 
 
 function fetch_details(){
@@ -63,7 +76,8 @@ function fetch_details(){
 
 module.exports = {
     apply,
-    fetch_details
+    fetch_details,
+    fetch_details_applied
 }
 
 
