@@ -128,13 +128,15 @@ router.post('/login',(req,res)=>{
 
 router.get('/review-application',verifyLogin,(req,res)=>{
   console.log(req.query.id)
-  
+  const uname=req.query.uname;
+  console.log(uname)
+  const email1=req.query.email;
   gymdetails.detils_for_analytics(req.query.id).then(async(response)=>{
     console.log(response)
     const rating=await gymdetails.calculateAverageRating(req.query.id)
     gymdetails.fetch_reviews(req.query.id).then((responsereview)=>{
       console.log(responsereview)
-      res.render('adminDash/verification-page',{wholerevenue:response.wholeRevenue,totalgym:response.totalgym,rating,totalMemberships:response.totalMemberships})
+      res.render('adminDash/verification-page',{uname,email1,wholerevenue:response.wholeRevenue,totalgym:response.totalgym,rating,totalMemberships:response.totalMemberships})
     })
 
    
