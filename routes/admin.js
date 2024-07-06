@@ -132,6 +132,7 @@ router.get('/review-application',verifyLogin,(req,res)=>{
   const uname=req.query.uname;
   console.log(uname)
   const email1=req.query.email;
+  req.session.gymid_forverification=req.query.id
   gymdetails.detils_for_analytics(req.query.id).then(async(response)=>{
     console.log(response)
     const rating=await gymdetails.calculateAverageRating(req.query.id)
@@ -139,7 +140,7 @@ router.get('/review-application',verifyLogin,(req,res)=>{
       console.log(responsereview)
       len = responsereview.length
       console.log(len)
-      res.render('adminDash/verification-page',{uname,email1,wholerevenue:response.wholeRevenue,totalgym:response.totalgym,rating,totalMemberships:response.totalMemberships, reviews:responsereview, len})
+      res.render('adminDash/verification-page',{uname,id:response._id,email1,wholerevenue:response.wholeRevenue,totalgym:response.totalgym,rating,totalMemberships:response.totalMemberships, reviews:responsereview, len})
     })
 
    
@@ -150,11 +151,12 @@ router.get('/review-application',verifyLogin,(req,res)=>{
 
 router.get('/approve',verifyLogin,(req,res)=>{
   //console.log("hi")
-  monitize.update_reviewarray(req.query.id).then((response)=>{
+  console.log(req.session.gymid_forverification)
+  monitize.update_reviewarray(req.session.gymid_forverification).then((response)=>{
     console.log(response)
-    userdetails.updateowner(req.query.id).then((updated)=>{
-      console.log(updated)
-      res.redirect("/admin")
+     userdetails.updateowner(req.session.gymid_forverification).then((updated)=>{
+       console.log(updated)
+       res.redirect("/admin")
 
     })
 
