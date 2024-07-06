@@ -2,7 +2,7 @@
     <main>
         <div>
             <h2 class="gym-name">{{details.name}} 
-                {{#if response.verify}}
+                {{#if details.verified}}
                 <span class="verified-badge">
                     <i class="fa-solid fa-dumbbell" style="color: #87f7e3;"></i>Verified
                 </span>
@@ -216,7 +216,7 @@
                                 <div>{{this.reviewDate}}</div>
                             </div>
                         </div>
-                        <div class="star-rating" id="reviewStarRating">{{this.rating}}</div>
+                        <div class="star-rating" id="reviewStarRating">{{this.rating}}<i class="fa-solid fa-star" style="color: #FFD43B;"></i></div>
                         <p>{{this.comment}}</p>
                     </div>
                 </div>

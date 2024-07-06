@@ -18,7 +18,7 @@ var app = express();
 app.use(session({
   resave: true,
   saveUninitialized: false,
-  secret:"key",cookie:{maxAge:600000}
+  secret:"key",cookie:{maxAge:6000000}
   // Other session options...
 }));
 app.use(passport.initialize());
