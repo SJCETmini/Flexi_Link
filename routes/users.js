@@ -14,7 +14,7 @@ const chat=require('../helpers/ai/chatbot')
 const review=require('../helpers/review/review')
 const ower=require('../helpers/registerandlogin/userlogin')
 
-
+const userhelpers=require('../helpers/users/auth')
 let stripeGateway = stripe(process.env.stripe_api)
 let DOMAIN = process.env.DOMAIN;
 require("../helpers/users/auth")
@@ -222,6 +222,29 @@ router.post("/review",(req,res)=>{
 
 })
 
+router.post('/register',(req,res)=>{
+  console.log(req.body)
+  userhelpers.register(req.body).then((response)=>{
+    console.log(response)
+    req.session.userloggedIn=true
+    req.session.user=response
+    res.redirect('/users')
+  })
+})
+
+router.post("/login",(req,res,next)=>{
+  userhelpers.login(req.body).then((response)=>{
+    if(response.status){
+      req.session.user=response.val
+      console.log(response.val)
+      req.session.userloggedIn=true
+      res.redirect("/users");
+    }  
+    
+    console.log(response)
+  })
+})
+
 router.get('/membership-card', function(req, res, next) { 
   
   membershipgenerator.findAllwithid(req.session.user._id).then((response)=>{
@@ -341,6 +364,8 @@ router.get('/auth/google/callback',
     res.redirect("/users")
    
   });
+
+
 
   router.get('/chat', (req, res) => {
     res.render('./chat-bot/chat');

@@ -377,7 +377,7 @@ function requirement_monitize(id){
     let averagerating = false;
     const averageRatingValue = await calculateAverageRating(id);
     console.log('ghh', averageRatingValue);
-    if (averageRatingValue > 3.5) {
+    if (averageRatingValue >= 3.5) {
       averagerating = true;
     }
       const data_for_purpose={

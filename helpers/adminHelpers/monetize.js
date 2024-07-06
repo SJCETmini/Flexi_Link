@@ -52,8 +52,9 @@ function apply(ownerId) {
 
 function fetch_details_applied(){
     return new Promise(async(resolve,reject)=>{
-        const ownersverification= await Monitize.findOne({})
+        const ownersverification= await Monitize.findOne({}).lean()
         .select('applied')
+        console.log(ownersverification)
         const applied_array=ownersverification.applied;
         const ownersArray = applied_array.map(item => item.owner);
         owners.getFulldetails(ownersArray).then((response)=>{
@@ -68,6 +69,7 @@ function update_reviewarray(ownerId){
     return new Promise(async(resolve,reject)=>{
 
         const document = await Monitize.findOne({ 'applied.owner': ownerId });
+        
     
         if (!document) {
           console.log('Owner not found in applied array');

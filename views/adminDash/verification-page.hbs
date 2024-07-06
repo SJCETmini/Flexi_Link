@@ -186,10 +186,9 @@
   
       <div class="verification-status">
         <div class="status">Verification Status: Pending</div>
-        <a href="/admin/approve/?id={{id}}" class="btn btn-primary"
-          onclick="updateStatus('accepted'); return false;">Accept</a>
-        <a href="#" class="btn btn-danger reject" onclick="updateStatus('rejected'); return false;">Reject</a>
-        <a href="#" class="btn btn-warning change" onclick="updateStatus('pending'); return false;">Change Status</a>
+        <a href="/admin/approve/?id={{id}}&status=accepted" class="btn btn-primary">Accept</a>
+  <a href="/admin/approve/?id={{id}}&status=rejected" class="btn btn-danger reject">Reject</a>
+  <a href="/admin/approve/?id={{id}}&status=pending" class="btn btn-warning change">Change Status</a>
   
       </div>
   
